@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Assignment 3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="assignment3q_files/libs/clipboard/clipboard.min.js"></script>
+<script src="assignment3q_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="assignment3q_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="assignment3q_files/libs/quarto-html/popper.min.js"></script>
+<script src="assignment3q_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="assignment3q_files/libs/quarto-html/anchor.min.js"></script>
+<link href="assignment3q_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="assignment3q_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="assignment3q_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="assignment3q_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="assignment3q_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assignment 3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong><em>How to do it?</em></strong>:</p>
+<ul>
+<li><p>Open the Quarto file of this assignment (<a href="assignment3q.qmd">link</a>) in Rstudio.</p></li>
+<li><p>Right under each <strong>question</strong>, insert a code chunk (you can use the hotkey <code>Ctrl + Alt + I</code> to add a code chunk) and code the solution for the question.</p></li>
+<li><p><code>Knit</code> the rmarkdown file (hotkey: <code>Ctrl + Alt + K</code>) to export an html.</p></li>
+<li><p>Publish the html file to your Githiub Page.</p></li>
+</ul>
+<p><strong><em>Submission</em></strong>: Submit the link on Github of the assignment to Canvas.</p>
+<hr>
+<section id="problems" class="level2">
+<h2 class="anchored" data-anchor-id="problems">Problems</h2>
+<p><br>
+</p>
+<ol type="1">
+<li>Create the following data frame</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">Age</th>
+<th style="text-align: left;">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">28</td>
+<td style="text-align: left;">Tom</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">34</td>
+<td style="text-align: left;">Jack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">29</td>
+<td style="text-align: left;">Steve</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">42</td>
+<td style="text-align: left;">Ricky</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Rank =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">34</span>, <span class="dv">29</span>, <span class="dv">42</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Name =</span> <span class="fu">c</span>(<span class="st">"Tom"</span>, <span class="st">"Jack"</span>, <span class="st">"Steve"</span>, <span class="st">"Ricky"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Rank Age  Name
+1    0  28   Tom
+2    1  34  Jack
+3    2  29 Steve
+4    3  42 Ricky</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li><p>Use <code>read.csv</code> to import the Covid19 Vaccination data from WHO: <a href="https://bryantstats.github.io/math421/data/us-states.csv">link</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>covid <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"https://covid19.who.int/who-data/vaccination-data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Show the names of the variables in the data</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"https://bryantstats.github.io/math421/data/us-states.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "date"   "state"  "fips"   "cases"  "deaths"</code></pre>
+</div>
+</div>
+<ol start="4" type="1">
+<li>How many columns and rows the data have?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 51078     5</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>How many missing values are there? Show the missing values by columns. What variable has the most number of missing values?</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  date  state   fips  cases deaths 
+     0      0      0      0      0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
+<li><p>What is the class of the <code>date</code> column. Change the <code>date</code> columns to <code>date</code> type using the <code>as.Date</code> function. Show the new class of the <code>date</code> column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "character"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>date <span class="ot">=</span> <span class="fu">as.Date</span>(df<span class="sc">$</span>date)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df<span class="sc">$</span>date)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Date"</code></pre>
+</div>
+</div></li>
+<li><p>Capitalize the names of all the variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">=</span> <span class="fu">toupper</span>(<span class="fu">names</span>(df))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "DATE"   "STATE"  "FIPS"   "CASES"  "DEATHS"</code></pre>
+</div>
+</div></li>
+<li><p>Find the average number of cases per day. Find the maximum cases a day.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>CASES)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 700593.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(df<span class="sc">$</span>CASES)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11163758</code></pre>
+</div>
+</div></li>
+<li><p>How many states are there in the data?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(df<span class="sc">$</span>STATE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 56</code></pre>
+</div>
+</div></li>
+<li><p>Create a new variable <code>weekdays</code> to store the weekday for each rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>weekdays <span class="ot">=</span> <span class="fu">weekdays</span>(df<span class="sc">$</span>DATE)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df<span class="sc">$</span>weekdays)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Tuesday"   "Wednesday" "Thursday"  "Friday"    "Friday"    "Saturday" </code></pre>
+</div>
+</div></li>
+<li><p>Create the categorical variable <code>death2</code> variable taking the values as follows</p></li>
+</ol>
+<ul>
+<li><p><code>has_death</code> if there is a death that day</p></li>
+<li><p><code>no_death</code> if there is no death that day</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death2 <span class="ot">=</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&gt;</span> <span class="dv">0</span>, <span class="st">"has_death"</span>, <span class="st">"no_death"</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>death2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+has_death  no_death 
+    49926      1152 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">prop.table</span>(<span class="fu">table</span>(df<span class="sc">$</span>death2))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ has_death   no_death 
+0.97744626 0.02255374 </code></pre>
+</div>
+</div></li>
+</ul>
+<p>Find the frequency and relative frequency of <code>no_death</code> and <code>has_death</code>.</p>
+<ol start="12" type="1">
+<li><p>Find the first quartile (Q1), second quartile (Q2) and and third quartile (Q3) of the variable <code>death</code>. (Hint: Use the <code>summary</code> function)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df<span class="sc">$</span>DEATHS)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      0     838    4064   10134   12674   95407 </code></pre>
+</div>
+</div></li>
+<li><p>Create the categorical variable <code>death3</code> variable taking the values as follows</p></li>
+</ol>
+<ul>
+<li><p><code>low_death</code> if the number of deaths smaller than the 25 percentile (Q1)</p></li>
+<li><p><code>mid_death</code> if the number of deaths from Q1 to Q3</p></li>
+<li><p><code>high_death</code> if the number of deaths greater than Q3</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>death3 <span class="ot">=</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&lt;</span> <span class="dv">838</span>, <span class="st">"low_death"</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">ifelse</span>(df<span class="sc">$</span>DEATHS <span class="sc">&gt;</span> <span class="dv">12674</span>, <span class="st">"high_death"</span>, <span class="st">"mid_death"</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>death3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+high_death  low_death  mid_death 
+     12769      12762      25547 </code></pre>
+</div>
+</div></li>
+</ul>
+<ol start="14" type="1">
+<li><p>Find the average cases in Rhode Island in 2021</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(df<span class="sc">$</span>CASES[df<span class="sc">$</span>STATE <span class="sc">==</span> <span class="st">"Rhode Island"</span> <span class="sc">&amp;</span> <span class="fu">format</span>(df<span class="sc">$</span>DATE, <span class="st">"%Y"</span>) <span class="sc">==</span> <span class="st">"2021"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 154438.5</code></pre>
+</div>
+</div></li>
+<li><p>Find the median cases by weekdays in Rhode Island in 2021</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">=</span> df[(df<span class="sc">$</span>STATE <span class="sc">==</span> <span class="st">"Rhode Island"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>         (df<span class="sc">$</span>DATE <span class="sc">&gt;=</span> <span class="st">"2021-01-01"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>         (df<span class="sc">$</span>DATE <span class="sc">&lt;=</span> <span class="st">"2021-12-31"</span>),]</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(<span class="at">data =</span> df1<span class="sc">$</span>CASES, <span class="at">INDICES =</span> df1<span class="sc">$</span>weekdays, <span class="at">FUN =</span> median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>df1$weekdays: Friday
+[1] 152643
+------------------------------------------------------------ 
+df1$weekdays: Monday
+[1] 152605
+------------------------------------------------------------ 
+df1$weekdays: Saturday
+[1] 152578.5
+------------------------------------------------------------ 
+df1$weekdays: Sunday
+[1] 152578.5
+------------------------------------------------------------ 
+df1$weekdays: Thursday
+[1] 152683
+------------------------------------------------------------ 
+df1$weekdays: Tuesday
+[1] 152643.5
+------------------------------------------------------------ 
+df1$weekdays: Wednesday
+[1] 152675.5</code></pre>
+</div>
+</div></li>
+<li><p>Compare the median cases in Rhode Island in June, July, August and September in 2021.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>df1<span class="sc">$</span>month <span class="ot">=</span> <span class="fu">format</span>(df1<span class="sc">$</span>DATE, <span class="st">"%b"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">=</span> df1[df1<span class="sc">$</span>month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Jun"</span>, <span class="st">"Jul"</span>, <span class="st">"Aug"</span>, <span class="st">"Sep"</span>),]</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(<span class="at">data =</span> df2<span class="sc">$</span>CASES, <span class="at">INDICES =</span> df2<span class="sc">$</span>month, <span class="at">FUN =</span> median)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>df2$month: Aug
+[1] 158283
+------------------------------------------------------------ 
+df2$month: Jul
+[1] 152971
+------------------------------------------------------------ 
+df2$month: Jun
+[1] 152319.5
+------------------------------------------------------------ 
+df2$month: Sep
+[1] 167814</code></pre>
+</div>
+</div></li>
+<li><p>Find your own dataset, import it and implement the following functions on the data</p></li>
+</ol>
+<ul>
+<li><p>head</p></li>
+<li><p>str</p></li>
+<li><p>names</p></li>
+<li><p>mean, min, max</p></li>
+<li><p>table</p></li>
+<li><p>is.na</p></li>
+<li><p>colSums</p></li>
+<li><p>class</p></li>
+<li><p>cor</p></li>
+<li><p>by</p></li>
+<li><p>ifelse</p></li>
+<li><p>case_when</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">"titanic.csv"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># head</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PassengerId Survived Pclass
+1           1        0      3
+2           2        1      1
+3           3        1      3
+4           4        1      1
+5           5        0      3
+6           6        0      3
+                                                 Name    Sex Age SibSp Parch
+1                             Braund, Mr. Owen Harris   male  22     1     0
+2 Cumings, Mrs. John Bradley (Florence Briggs Thayer) female  38     1     0
+3                              Heikkinen, Miss. Laina female  26     0     0
+4        Futrelle, Mrs. Jacques Heath (Lily May Peel) female  35     1     0
+5                            Allen, Mr. William Henry   male  35     0     0
+6                                    Moran, Mr. James   male  NA     0     0
+            Ticket    Fare Cabin Embarked
+1        A/5 21171  7.2500              S
+2         PC 17599 71.2833   C85        C
+3 STON/O2. 3101282  7.9250              S
+4           113803 53.1000  C123        S
+5           373450  8.0500              S
+6           330877  8.4583              Q</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># str</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   891 obs. of  12 variables:
+ $ PassengerId: int  1 2 3 4 5 6 7 8 9 10 ...
+ $ Survived   : int  0 1 1 1 0 0 0 0 1 1 ...
+ $ Pclass     : int  3 1 3 1 3 3 1 3 3 2 ...
+ $ Name       : chr  "Braund, Mr. Owen Harris" "Cumings, Mrs. John Bradley (Florence Briggs Thayer)" "Heikkinen, Miss. Laina" "Futrelle, Mrs. Jacques Heath (Lily May Peel)" ...
+ $ Sex        : chr  "male" "female" "female" "female" ...
+ $ Age        : num  22 38 26 35 35 NA 54 2 27 14 ...
+ $ SibSp      : int  1 1 0 1 0 0 0 3 0 1 ...
+ $ Parch      : int  0 0 0 0 0 0 0 1 2 0 ...
+ $ Ticket     : chr  "A/5 21171" "PC 17599" "STON/O2. 3101282" "113803" ...
+ $ Fare       : num  7.25 71.28 7.92 53.1 8.05 ...
+ $ Cabin      : chr  "" "C85" "" "C123" ...
+ $ Embarked   : chr  "S" "C" "S" "S" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># names</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "PassengerId" "Survived"    "Pclass"      "Name"        "Sex"        
+ [6] "Age"         "SibSp"       "Parch"       "Ticket"      "Fare"       
+[11] "Cabin"       "Embarked"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean, min, max</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(titanic<span class="sc">$</span>Fare)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 32.20421</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(titanic<span class="sc">$</span>Fare)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(titanic<span class="sc">$</span>Fare)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 512.3292</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(titanic<span class="sc">$</span>Sex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+female   male 
+   314    577 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># is.na</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.na</span>(titanic)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       PassengerId Survived Pclass  Name   Sex   Age SibSp Parch Ticket  Fare
+  [1,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [2,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [3,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [4,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [5,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [6,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+  [7,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [8,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+  [9,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [10,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [11,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [12,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [13,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [14,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [15,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [16,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [17,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [18,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [19,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [20,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [21,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [22,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [23,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [24,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [25,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [26,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [27,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [28,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [29,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [30,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [31,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [32,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [33,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [34,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [35,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [36,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [37,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [38,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [39,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [40,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [41,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [42,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [43,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [44,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [45,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [46,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [47,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [48,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [49,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [50,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [51,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [52,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [53,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [54,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [55,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [56,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [57,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [58,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [59,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [60,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [61,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [62,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [63,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [64,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [65,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [66,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [67,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [68,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [69,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [70,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [71,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [72,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [73,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [74,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [75,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [76,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [77,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [78,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [79,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [80,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [81,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [82,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [83,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [84,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [85,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [86,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [87,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [88,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [89,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [90,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [91,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [92,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [93,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [94,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [95,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [96,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+ [97,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [98,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+ [99,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[100,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[101,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[102,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[103,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[104,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[105,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[106,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[107,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[108,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[109,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[110,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[111,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[112,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[113,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[114,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[115,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[116,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[117,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[118,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[119,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[120,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[121,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[122,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[123,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[124,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[125,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[126,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[127,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[128,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[129,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[130,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[131,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[132,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[133,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[134,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[135,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[136,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[137,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[138,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[139,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[140,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[141,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[142,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[143,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[144,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[145,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[146,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[147,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[148,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[149,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[150,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[151,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[152,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[153,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[154,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[155,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[156,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[157,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[158,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[159,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[160,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[161,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[162,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[163,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[164,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[165,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[166,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[167,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[168,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[169,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[170,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[171,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[172,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[173,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[174,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[175,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[176,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[177,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[178,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[179,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[180,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[181,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[182,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[183,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[184,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[185,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[186,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[187,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[188,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[189,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[190,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[191,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[192,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[193,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[194,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[195,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[196,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[197,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[198,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[199,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[200,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[201,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[202,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[203,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[204,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[205,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[206,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[207,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[208,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[209,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[210,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[211,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[212,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[213,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[214,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[215,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[216,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[217,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[218,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[219,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[220,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[221,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[222,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[223,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[224,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[225,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[226,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[227,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[228,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[229,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[230,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[231,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[232,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[233,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[234,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[235,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[236,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[237,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[238,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[239,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[240,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[241,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[242,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[243,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[244,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[245,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[246,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[247,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[248,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[249,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[250,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[251,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[252,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[253,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[254,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[255,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[256,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[257,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[258,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[259,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[260,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[261,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[262,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[263,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[264,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[265,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[266,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[267,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[268,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[269,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[270,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[271,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[272,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[273,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[274,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[275,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[276,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[277,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[278,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[279,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[280,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[281,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[282,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[283,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[284,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[285,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[286,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[287,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[288,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[289,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[290,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[291,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[292,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[293,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[294,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[295,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[296,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[297,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[298,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[299,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[300,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[301,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[302,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[303,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[304,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[305,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[306,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[307,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[308,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[309,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[310,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[311,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[312,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[313,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[314,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[315,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[316,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[317,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[318,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[319,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[320,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[321,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[322,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[323,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[324,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[325,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[326,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[327,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[328,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[329,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[330,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[331,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[332,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[333,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[334,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[335,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[336,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[337,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[338,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[339,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[340,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[341,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[342,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[343,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[344,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[345,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[346,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[347,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[348,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[349,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[350,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[351,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[352,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[353,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[354,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[355,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[356,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[357,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[358,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[359,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[360,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[361,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[362,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[363,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[364,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[365,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[366,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[367,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[368,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[369,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[370,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[371,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[372,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[373,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[374,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[375,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[376,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[377,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[378,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[379,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[380,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[381,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[382,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[383,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[384,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[385,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[386,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[387,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[388,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[389,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[390,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[391,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[392,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[393,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[394,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[395,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[396,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[397,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[398,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[399,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[400,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[401,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[402,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[403,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[404,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[405,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[406,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[407,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[408,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[409,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[410,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[411,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[412,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[413,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[414,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[415,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[416,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[417,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[418,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[419,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[420,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[421,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[422,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[423,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[424,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[425,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[426,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[427,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[428,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[429,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[430,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[431,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[432,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[433,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[434,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[435,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[436,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[437,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[438,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[439,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[440,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[441,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[442,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[443,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[444,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[445,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[446,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[447,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[448,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[449,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[450,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[451,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[452,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[453,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[454,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[455,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[456,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[457,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[458,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[459,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[460,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[461,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[462,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[463,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[464,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[465,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[466,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[467,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[468,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[469,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[470,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[471,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[472,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[473,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[474,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[475,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[476,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[477,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[478,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[479,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[480,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[481,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[482,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[483,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[484,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[485,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[486,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[487,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[488,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[489,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[490,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[491,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[492,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[493,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[494,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[495,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[496,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[497,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[498,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[499,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[500,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[501,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[502,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[503,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[504,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[505,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[506,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[507,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[508,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[509,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[510,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[511,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[512,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[513,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[514,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[515,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[516,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[517,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[518,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[519,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[520,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[521,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[522,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[523,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[524,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[525,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[526,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[527,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[528,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[529,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[530,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[531,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[532,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[533,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[534,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[535,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[536,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[537,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[538,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[539,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[540,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[541,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[542,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[543,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[544,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[545,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[546,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[547,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[548,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[549,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[550,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[551,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[552,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[553,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[554,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[555,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[556,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[557,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[558,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[559,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[560,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[561,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[562,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[563,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[564,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[565,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[566,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[567,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[568,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[569,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[570,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[571,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[572,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[573,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[574,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[575,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[576,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[577,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[578,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[579,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[580,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[581,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[582,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[583,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[584,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[585,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[586,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[587,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[588,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[589,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[590,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[591,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[592,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[593,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[594,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[595,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[596,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[597,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[598,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[599,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[600,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[601,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[602,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[603,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[604,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[605,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[606,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[607,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[608,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[609,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[610,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[611,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[612,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[613,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[614,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[615,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[616,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[617,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[618,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[619,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[620,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[621,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[622,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[623,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[624,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[625,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[626,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[627,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[628,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[629,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[630,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[631,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[632,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[633,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[634,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[635,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[636,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[637,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[638,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[639,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[640,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[641,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[642,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[643,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[644,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[645,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[646,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[647,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[648,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[649,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[650,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[651,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[652,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[653,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[654,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[655,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[656,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[657,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[658,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[659,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[660,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[661,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[662,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[663,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[664,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[665,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[666,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[667,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[668,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[669,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[670,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[671,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[672,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[673,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[674,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[675,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[676,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[677,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[678,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[679,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[680,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[681,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[682,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[683,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[684,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[685,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[686,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[687,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[688,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[689,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[690,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[691,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[692,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[693,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[694,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[695,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[696,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[697,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[698,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[699,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[700,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[701,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[702,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[703,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[704,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[705,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[706,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[707,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[708,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[709,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[710,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[711,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[712,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[713,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[714,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[715,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[716,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[717,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[718,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[719,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[720,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[721,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[722,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[723,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[724,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[725,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[726,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[727,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[728,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[729,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[730,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[731,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[732,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[733,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[734,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[735,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[736,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[737,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[738,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[739,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[740,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[741,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[742,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[743,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[744,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[745,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[746,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[747,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[748,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[749,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[750,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[751,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[752,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[753,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[754,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[755,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[756,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[757,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[758,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[759,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[760,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[761,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[762,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[763,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[764,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[765,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[766,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[767,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[768,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[769,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[770,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[771,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[772,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[773,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[774,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[775,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[776,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[777,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[778,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[779,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[780,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[781,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[782,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[783,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[784,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[785,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[786,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[787,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[788,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[789,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[790,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[791,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[792,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[793,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[794,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[795,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[796,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[797,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[798,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[799,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[800,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[801,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[802,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[803,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[804,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[805,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[806,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[807,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[808,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[809,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[810,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[811,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[812,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[813,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[814,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[815,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[816,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[817,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[818,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[819,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[820,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[821,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[822,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[823,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[824,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[825,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[826,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[827,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[828,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[829,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[830,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[831,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[832,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[833,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[834,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[835,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[836,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[837,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[838,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[839,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[840,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[841,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[842,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[843,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[844,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[845,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[846,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[847,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[848,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[849,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[850,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[851,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[852,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[853,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[854,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[855,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[856,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[857,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[858,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[859,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[860,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[861,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[862,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[863,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[864,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[865,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[866,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[867,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[868,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[869,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[870,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[871,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[872,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[873,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[874,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[875,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[876,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[877,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[878,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[879,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[880,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[881,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[882,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[883,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[884,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[885,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[886,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[887,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[888,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[889,]       FALSE    FALSE  FALSE FALSE FALSE  TRUE FALSE FALSE  FALSE FALSE
+[890,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+[891,]       FALSE    FALSE  FALSE FALSE FALSE FALSE FALSE FALSE  FALSE FALSE
+       Cabin Embarked
+  [1,] FALSE    FALSE
+  [2,] FALSE    FALSE
+  [3,] FALSE    FALSE
+  [4,] FALSE    FALSE
+  [5,] FALSE    FALSE
+  [6,] FALSE    FALSE
+  [7,] FALSE    FALSE
+  [8,] FALSE    FALSE
+  [9,] FALSE    FALSE
+ [10,] FALSE    FALSE
+ [11,] FALSE    FALSE
+ [12,] FALSE    FALSE
+ [13,] FALSE    FALSE
+ [14,] FALSE    FALSE
+ [15,] FALSE    FALSE
+ [16,] FALSE    FALSE
+ [17,] FALSE    FALSE
+ [18,] FALSE    FALSE
+ [19,] FALSE    FALSE
+ [20,] FALSE    FALSE
+ [21,] FALSE    FALSE
+ [22,] FALSE    FALSE
+ [23,] FALSE    FALSE
+ [24,] FALSE    FALSE
+ [25,] FALSE    FALSE
+ [26,] FALSE    FALSE
+ [27,] FALSE    FALSE
+ [28,] FALSE    FALSE
+ [29,] FALSE    FALSE
+ [30,] FALSE    FALSE
+ [31,] FALSE    FALSE
+ [32,] FALSE    FALSE
+ [33,] FALSE    FALSE
+ [34,] FALSE    FALSE
+ [35,] FALSE    FALSE
+ [36,] FALSE    FALSE
+ [37,] FALSE    FALSE
+ [38,] FALSE    FALSE
+ [39,] FALSE    FALSE
+ [40,] FALSE    FALSE
+ [41,] FALSE    FALSE
+ [42,] FALSE    FALSE
+ [43,] FALSE    FALSE
+ [44,] FALSE    FALSE
+ [45,] FALSE    FALSE
+ [46,] FALSE    FALSE
+ [47,] FALSE    FALSE
+ [48,] FALSE    FALSE
+ [49,] FALSE    FALSE
+ [50,] FALSE    FALSE
+ [51,] FALSE    FALSE
+ [52,] FALSE    FALSE
+ [53,] FALSE    FALSE
+ [54,] FALSE    FALSE
+ [55,] FALSE    FALSE
+ [56,] FALSE    FALSE
+ [57,] FALSE    FALSE
+ [58,] FALSE    FALSE
+ [59,] FALSE    FALSE
+ [60,] FALSE    FALSE
+ [61,] FALSE    FALSE
+ [62,] FALSE    FALSE
+ [63,] FALSE    FALSE
+ [64,] FALSE    FALSE
+ [65,] FALSE    FALSE
+ [66,] FALSE    FALSE
+ [67,] FALSE    FALSE
+ [68,] FALSE    FALSE
+ [69,] FALSE    FALSE
+ [70,] FALSE    FALSE
+ [71,] FALSE    FALSE
+ [72,] FALSE    FALSE
+ [73,] FALSE    FALSE
+ [74,] FALSE    FALSE
+ [75,] FALSE    FALSE
+ [76,] FALSE    FALSE
+ [77,] FALSE    FALSE
+ [78,] FALSE    FALSE
+ [79,] FALSE    FALSE
+ [80,] FALSE    FALSE
+ [81,] FALSE    FALSE
+ [82,] FALSE    FALSE
+ [83,] FALSE    FALSE
+ [84,] FALSE    FALSE
+ [85,] FALSE    FALSE
+ [86,] FALSE    FALSE
+ [87,] FALSE    FALSE
+ [88,] FALSE    FALSE
+ [89,] FALSE    FALSE
+ [90,] FALSE    FALSE
+ [91,] FALSE    FALSE
+ [92,] FALSE    FALSE
+ [93,] FALSE    FALSE
+ [94,] FALSE    FALSE
+ [95,] FALSE    FALSE
+ [96,] FALSE    FALSE
+ [97,] FALSE    FALSE
+ [98,] FALSE    FALSE
+ [99,] FALSE    FALSE
+[100,] FALSE    FALSE
+[101,] FALSE    FALSE
+[102,] FALSE    FALSE
+[103,] FALSE    FALSE
+[104,] FALSE    FALSE
+[105,] FALSE    FALSE
+[106,] FALSE    FALSE
+[107,] FALSE    FALSE
+[108,] FALSE    FALSE
+[109,] FALSE    FALSE
+[110,] FALSE    FALSE
+[111,] FALSE    FALSE
+[112,] FALSE    FALSE
+[113,] FALSE    FALSE
+[114,] FALSE    FALSE
+[115,] FALSE    FALSE
+[116,] FALSE    FALSE
+[117,] FALSE    FALSE
+[118,] FALSE    FALSE
+[119,] FALSE    FALSE
+[120,] FALSE    FALSE
+[121,] FALSE    FALSE
+[122,] FALSE    FALSE
+[123,] FALSE    FALSE
+[124,] FALSE    FALSE
+[125,] FALSE    FALSE
+[126,] FALSE    FALSE
+[127,] FALSE    FALSE
+[128,] FALSE    FALSE
+[129,] FALSE    FALSE
+[130,] FALSE    FALSE
+[131,] FALSE    FALSE
+[132,] FALSE    FALSE
+[133,] FALSE    FALSE
+[134,] FALSE    FALSE
+[135,] FALSE    FALSE
+[136,] FALSE    FALSE
+[137,] FALSE    FALSE
+[138,] FALSE    FALSE
+[139,] FALSE    FALSE
+[140,] FALSE    FALSE
+[141,] FALSE    FALSE
+[142,] FALSE    FALSE
+[143,] FALSE    FALSE
+[144,] FALSE    FALSE
+[145,] FALSE    FALSE
+[146,] FALSE    FALSE
+[147,] FALSE    FALSE
+[148,] FALSE    FALSE
+[149,] FALSE    FALSE
+[150,] FALSE    FALSE
+[151,] FALSE    FALSE
+[152,] FALSE    FALSE
+[153,] FALSE    FALSE
+[154,] FALSE    FALSE
+[155,] FALSE    FALSE
+[156,] FALSE    FALSE
+[157,] FALSE    FALSE
+[158,] FALSE    FALSE
+[159,] FALSE    FALSE
+[160,] FALSE    FALSE
+[161,] FALSE    FALSE
+[162,] FALSE    FALSE
+[163,] FALSE    FALSE
+[164,] FALSE    FALSE
+[165,] FALSE    FALSE
+[166,] FALSE    FALSE
+[167,] FALSE    FALSE
+[168,] FALSE    FALSE
+[169,] FALSE    FALSE
+[170,] FALSE    FALSE
+[171,] FALSE    FALSE
+[172,] FALSE    FALSE
+[173,] FALSE    FALSE
+[174,] FALSE    FALSE
+[175,] FALSE    FALSE
+[176,] FALSE    FALSE
+[177,] FALSE    FALSE
+[178,] FALSE    FALSE
+[179,] FALSE    FALSE
+[180,] FALSE    FALSE
+[181,] FALSE    FALSE
+[182,] FALSE    FALSE
+[183,] FALSE    FALSE
+[184,] FALSE    FALSE
+[185,] FALSE    FALSE
+[186,] FALSE    FALSE
+[187,] FALSE    FALSE
+[188,] FALSE    FALSE
+[189,] FALSE    FALSE
+[190,] FALSE    FALSE
+[191,] FALSE    FALSE
+[192,] FALSE    FALSE
+[193,] FALSE    FALSE
+[194,] FALSE    FALSE
+[195,] FALSE    FALSE
+[196,] FALSE    FALSE
+[197,] FALSE    FALSE
+[198,] FALSE    FALSE
+[199,] FALSE    FALSE
+[200,] FALSE    FALSE
+[201,] FALSE    FALSE
+[202,] FALSE    FALSE
+[203,] FALSE    FALSE
+[204,] FALSE    FALSE
+[205,] FALSE    FALSE
+[206,] FALSE    FALSE
+[207,] FALSE    FALSE
+[208,] FALSE    FALSE
+[209,] FALSE    FALSE
+[210,] FALSE    FALSE
+[211,] FALSE    FALSE
+[212,] FALSE    FALSE
+[213,] FALSE    FALSE
+[214,] FALSE    FALSE
+[215,] FALSE    FALSE
+[216,] FALSE    FALSE
+[217,] FALSE    FALSE
+[218,] FALSE    FALSE
+[219,] FALSE    FALSE
+[220,] FALSE    FALSE
+[221,] FALSE    FALSE
+[222,] FALSE    FALSE
+[223,] FALSE    FALSE
+[224,] FALSE    FALSE
+[225,] FALSE    FALSE
+[226,] FALSE    FALSE
+[227,] FALSE    FALSE
+[228,] FALSE    FALSE
+[229,] FALSE    FALSE
+[230,] FALSE    FALSE
+[231,] FALSE    FALSE
+[232,] FALSE    FALSE
+[233,] FALSE    FALSE
+[234,] FALSE    FALSE
+[235,] FALSE    FALSE
+[236,] FALSE    FALSE
+[237,] FALSE    FALSE
+[238,] FALSE    FALSE
+[239,] FALSE    FALSE
+[240,] FALSE    FALSE
+[241,] FALSE    FALSE
+[242,] FALSE    FALSE
+[243,] FALSE    FALSE
+[244,] FALSE    FALSE
+[245,] FALSE    FALSE
+[246,] FALSE    FALSE
+[247,] FALSE    FALSE
+[248,] FALSE    FALSE
+[249,] FALSE    FALSE
+[250,] FALSE    FALSE
+[251,] FALSE    FALSE
+[252,] FALSE    FALSE
+[253,] FALSE    FALSE
+[254,] FALSE    FALSE
+[255,] FALSE    FALSE
+[256,] FALSE    FALSE
+[257,] FALSE    FALSE
+[258,] FALSE    FALSE
+[259,] FALSE    FALSE
+[260,] FALSE    FALSE
+[261,] FALSE    FALSE
+[262,] FALSE    FALSE
+[263,] FALSE    FALSE
+[264,] FALSE    FALSE
+[265,] FALSE    FALSE
+[266,] FALSE    FALSE
+[267,] FALSE    FALSE
+[268,] FALSE    FALSE
+[269,] FALSE    FALSE
+[270,] FALSE    FALSE
+[271,] FALSE    FALSE
+[272,] FALSE    FALSE
+[273,] FALSE    FALSE
+[274,] FALSE    FALSE
+[275,] FALSE    FALSE
+[276,] FALSE    FALSE
+[277,] FALSE    FALSE
+[278,] FALSE    FALSE
+[279,] FALSE    FALSE
+[280,] FALSE    FALSE
+[281,] FALSE    FALSE
+[282,] FALSE    FALSE
+[283,] FALSE    FALSE
+[284,] FALSE    FALSE
+[285,] FALSE    FALSE
+[286,] FALSE    FALSE
+[287,] FALSE    FALSE
+[288,] FALSE    FALSE
+[289,] FALSE    FALSE
+[290,] FALSE    FALSE
+[291,] FALSE    FALSE
+[292,] FALSE    FALSE
+[293,] FALSE    FALSE
+[294,] FALSE    FALSE
+[295,] FALSE    FALSE
+[296,] FALSE    FALSE
+[297,] FALSE    FALSE
+[298,] FALSE    FALSE
+[299,] FALSE    FALSE
+[300,] FALSE    FALSE
+[301,] FALSE    FALSE
+[302,] FALSE    FALSE
+[303,] FALSE    FALSE
+[304,] FALSE    FALSE
+[305,] FALSE    FALSE
+[306,] FALSE    FALSE
+[307,] FALSE    FALSE
+[308,] FALSE    FALSE
+[309,] FALSE    FALSE
+[310,] FALSE    FALSE
+[311,] FALSE    FALSE
+[312,] FALSE    FALSE
+[313,] FALSE    FALSE
+[314,] FALSE    FALSE
+[315,] FALSE    FALSE
+[316,] FALSE    FALSE
+[317,] FALSE    FALSE
+[318,] FALSE    FALSE
+[319,] FALSE    FALSE
+[320,] FALSE    FALSE
+[321,] FALSE    FALSE
+[322,] FALSE    FALSE
+[323,] FALSE    FALSE
+[324,] FALSE    FALSE
+[325,] FALSE    FALSE
+[326,] FALSE    FALSE
+[327,] FALSE    FALSE
+[328,] FALSE    FALSE
+[329,] FALSE    FALSE
+[330,] FALSE    FALSE
+[331,] FALSE    FALSE
+[332,] FALSE    FALSE
+[333,] FALSE    FALSE
+[334,] FALSE    FALSE
+[335,] FALSE    FALSE
+[336,] FALSE    FALSE
+[337,] FALSE    FALSE
+[338,] FALSE    FALSE
+[339,] FALSE    FALSE
+[340,] FALSE    FALSE
+[341,] FALSE    FALSE
+[342,] FALSE    FALSE
+[343,] FALSE    FALSE
+[344,] FALSE    FALSE
+[345,] FALSE    FALSE
+[346,] FALSE    FALSE
+[347,] FALSE    FALSE
+[348,] FALSE    FALSE
+[349,] FALSE    FALSE
+[350,] FALSE    FALSE
+[351,] FALSE    FALSE
+[352,] FALSE    FALSE
+[353,] FALSE    FALSE
+[354,] FALSE    FALSE
+[355,] FALSE    FALSE
+[356,] FALSE    FALSE
+[357,] FALSE    FALSE
+[358,] FALSE    FALSE
+[359,] FALSE    FALSE
+[360,] FALSE    FALSE
+[361,] FALSE    FALSE
+[362,] FALSE    FALSE
+[363,] FALSE    FALSE
+[364,] FALSE    FALSE
+[365,] FALSE    FALSE
+[366,] FALSE    FALSE
+[367,] FALSE    FALSE
+[368,] FALSE    FALSE
+[369,] FALSE    FALSE
+[370,] FALSE    FALSE
+[371,] FALSE    FALSE
+[372,] FALSE    FALSE
+[373,] FALSE    FALSE
+[374,] FALSE    FALSE
+[375,] FALSE    FALSE
+[376,] FALSE    FALSE
+[377,] FALSE    FALSE
+[378,] FALSE    FALSE
+[379,] FALSE    FALSE
+[380,] FALSE    FALSE
+[381,] FALSE    FALSE
+[382,] FALSE    FALSE
+[383,] FALSE    FALSE
+[384,] FALSE    FALSE
+[385,] FALSE    FALSE
+[386,] FALSE    FALSE
+[387,] FALSE    FALSE
+[388,] FALSE    FALSE
+[389,] FALSE    FALSE
+[390,] FALSE    FALSE
+[391,] FALSE    FALSE
+[392,] FALSE    FALSE
+[393,] FALSE    FALSE
+[394,] FALSE    FALSE
+[395,] FALSE    FALSE
+[396,] FALSE    FALSE
+[397,] FALSE    FALSE
+[398,] FALSE    FALSE
+[399,] FALSE    FALSE
+[400,] FALSE    FALSE
+[401,] FALSE    FALSE
+[402,] FALSE    FALSE
+[403,] FALSE    FALSE
+[404,] FALSE    FALSE
+[405,] FALSE    FALSE
+[406,] FALSE    FALSE
+[407,] FALSE    FALSE
+[408,] FALSE    FALSE
+[409,] FALSE    FALSE
+[410,] FALSE    FALSE
+[411,] FALSE    FALSE
+[412,] FALSE    FALSE
+[413,] FALSE    FALSE
+[414,] FALSE    FALSE
+[415,] FALSE    FALSE
+[416,] FALSE    FALSE
+[417,] FALSE    FALSE
+[418,] FALSE    FALSE
+[419,] FALSE    FALSE
+[420,] FALSE    FALSE
+[421,] FALSE    FALSE
+[422,] FALSE    FALSE
+[423,] FALSE    FALSE
+[424,] FALSE    FALSE
+[425,] FALSE    FALSE
+[426,] FALSE    FALSE
+[427,] FALSE    FALSE
+[428,] FALSE    FALSE
+[429,] FALSE    FALSE
+[430,] FALSE    FALSE
+[431,] FALSE    FALSE
+[432,] FALSE    FALSE
+[433,] FALSE    FALSE
+[434,] FALSE    FALSE
+[435,] FALSE    FALSE
+[436,] FALSE    FALSE
+[437,] FALSE    FALSE
+[438,] FALSE    FALSE
+[439,] FALSE    FALSE
+[440,] FALSE    FALSE
+[441,] FALSE    FALSE
+[442,] FALSE    FALSE
+[443,] FALSE    FALSE
+[444,] FALSE    FALSE
+[445,] FALSE    FALSE
+[446,] FALSE    FALSE
+[447,] FALSE    FALSE
+[448,] FALSE    FALSE
+[449,] FALSE    FALSE
+[450,] FALSE    FALSE
+[451,] FALSE    FALSE
+[452,] FALSE    FALSE
+[453,] FALSE    FALSE
+[454,] FALSE    FALSE
+[455,] FALSE    FALSE
+[456,] FALSE    FALSE
+[457,] FALSE    FALSE
+[458,] FALSE    FALSE
+[459,] FALSE    FALSE
+[460,] FALSE    FALSE
+[461,] FALSE    FALSE
+[462,] FALSE    FALSE
+[463,] FALSE    FALSE
+[464,] FALSE    FALSE
+[465,] FALSE    FALSE
+[466,] FALSE    FALSE
+[467,] FALSE    FALSE
+[468,] FALSE    FALSE
+[469,] FALSE    FALSE
+[470,] FALSE    FALSE
+[471,] FALSE    FALSE
+[472,] FALSE    FALSE
+[473,] FALSE    FALSE
+[474,] FALSE    FALSE
+[475,] FALSE    FALSE
+[476,] FALSE    FALSE
+[477,] FALSE    FALSE
+[478,] FALSE    FALSE
+[479,] FALSE    FALSE
+[480,] FALSE    FALSE
+[481,] FALSE    FALSE
+[482,] FALSE    FALSE
+[483,] FALSE    FALSE
+[484,] FALSE    FALSE
+[485,] FALSE    FALSE
+[486,] FALSE    FALSE
+[487,] FALSE    FALSE
+[488,] FALSE    FALSE
+[489,] FALSE    FALSE
+[490,] FALSE    FALSE
+[491,] FALSE    FALSE
+[492,] FALSE    FALSE
+[493,] FALSE    FALSE
+[494,] FALSE    FALSE
+[495,] FALSE    FALSE
+[496,] FALSE    FALSE
+[497,] FALSE    FALSE
+[498,] FALSE    FALSE
+[499,] FALSE    FALSE
+[500,] FALSE    FALSE
+[501,] FALSE    FALSE
+[502,] FALSE    FALSE
+[503,] FALSE    FALSE
+[504,] FALSE    FALSE
+[505,] FALSE    FALSE
+[506,] FALSE    FALSE
+[507,] FALSE    FALSE
+[508,] FALSE    FALSE
+[509,] FALSE    FALSE
+[510,] FALSE    FALSE
+[511,] FALSE    FALSE
+[512,] FALSE    FALSE
+[513,] FALSE    FALSE
+[514,] FALSE    FALSE
+[515,] FALSE    FALSE
+[516,] FALSE    FALSE
+[517,] FALSE    FALSE
+[518,] FALSE    FALSE
+[519,] FALSE    FALSE
+[520,] FALSE    FALSE
+[521,] FALSE    FALSE
+[522,] FALSE    FALSE
+[523,] FALSE    FALSE
+[524,] FALSE    FALSE
+[525,] FALSE    FALSE
+[526,] FALSE    FALSE
+[527,] FALSE    FALSE
+[528,] FALSE    FALSE
+[529,] FALSE    FALSE
+[530,] FALSE    FALSE
+[531,] FALSE    FALSE
+[532,] FALSE    FALSE
+[533,] FALSE    FALSE
+[534,] FALSE    FALSE
+[535,] FALSE    FALSE
+[536,] FALSE    FALSE
+[537,] FALSE    FALSE
+[538,] FALSE    FALSE
+[539,] FALSE    FALSE
+[540,] FALSE    FALSE
+[541,] FALSE    FALSE
+[542,] FALSE    FALSE
+[543,] FALSE    FALSE
+[544,] FALSE    FALSE
+[545,] FALSE    FALSE
+[546,] FALSE    FALSE
+[547,] FALSE    FALSE
+[548,] FALSE    FALSE
+[549,] FALSE    FALSE
+[550,] FALSE    FALSE
+[551,] FALSE    FALSE
+[552,] FALSE    FALSE
+[553,] FALSE    FALSE
+[554,] FALSE    FALSE
+[555,] FALSE    FALSE
+[556,] FALSE    FALSE
+[557,] FALSE    FALSE
+[558,] FALSE    FALSE
+[559,] FALSE    FALSE
+[560,] FALSE    FALSE
+[561,] FALSE    FALSE
+[562,] FALSE    FALSE
+[563,] FALSE    FALSE
+[564,] FALSE    FALSE
+[565,] FALSE    FALSE
+[566,] FALSE    FALSE
+[567,] FALSE    FALSE
+[568,] FALSE    FALSE
+[569,] FALSE    FALSE
+[570,] FALSE    FALSE
+[571,] FALSE    FALSE
+[572,] FALSE    FALSE
+[573,] FALSE    FALSE
+[574,] FALSE    FALSE
+[575,] FALSE    FALSE
+[576,] FALSE    FALSE
+[577,] FALSE    FALSE
+[578,] FALSE    FALSE
+[579,] FALSE    FALSE
+[580,] FALSE    FALSE
+[581,] FALSE    FALSE
+[582,] FALSE    FALSE
+[583,] FALSE    FALSE
+[584,] FALSE    FALSE
+[585,] FALSE    FALSE
+[586,] FALSE    FALSE
+[587,] FALSE    FALSE
+[588,] FALSE    FALSE
+[589,] FALSE    FALSE
+[590,] FALSE    FALSE
+[591,] FALSE    FALSE
+[592,] FALSE    FALSE
+[593,] FALSE    FALSE
+[594,] FALSE    FALSE
+[595,] FALSE    FALSE
+[596,] FALSE    FALSE
+[597,] FALSE    FALSE
+[598,] FALSE    FALSE
+[599,] FALSE    FALSE
+[600,] FALSE    FALSE
+[601,] FALSE    FALSE
+[602,] FALSE    FALSE
+[603,] FALSE    FALSE
+[604,] FALSE    FALSE
+[605,] FALSE    FALSE
+[606,] FALSE    FALSE
+[607,] FALSE    FALSE
+[608,] FALSE    FALSE
+[609,] FALSE    FALSE
+[610,] FALSE    FALSE
+[611,] FALSE    FALSE
+[612,] FALSE    FALSE
+[613,] FALSE    FALSE
+[614,] FALSE    FALSE
+[615,] FALSE    FALSE
+[616,] FALSE    FALSE
+[617,] FALSE    FALSE
+[618,] FALSE    FALSE
+[619,] FALSE    FALSE
+[620,] FALSE    FALSE
+[621,] FALSE    FALSE
+[622,] FALSE    FALSE
+[623,] FALSE    FALSE
+[624,] FALSE    FALSE
+[625,] FALSE    FALSE
+[626,] FALSE    FALSE
+[627,] FALSE    FALSE
+[628,] FALSE    FALSE
+[629,] FALSE    FALSE
+[630,] FALSE    FALSE
+[631,] FALSE    FALSE
+[632,] FALSE    FALSE
+[633,] FALSE    FALSE
+[634,] FALSE    FALSE
+[635,] FALSE    FALSE
+[636,] FALSE    FALSE
+[637,] FALSE    FALSE
+[638,] FALSE    FALSE
+[639,] FALSE    FALSE
+[640,] FALSE    FALSE
+[641,] FALSE    FALSE
+[642,] FALSE    FALSE
+[643,] FALSE    FALSE
+[644,] FALSE    FALSE
+[645,] FALSE    FALSE
+[646,] FALSE    FALSE
+[647,] FALSE    FALSE
+[648,] FALSE    FALSE
+[649,] FALSE    FALSE
+[650,] FALSE    FALSE
+[651,] FALSE    FALSE
+[652,] FALSE    FALSE
+[653,] FALSE    FALSE
+[654,] FALSE    FALSE
+[655,] FALSE    FALSE
+[656,] FALSE    FALSE
+[657,] FALSE    FALSE
+[658,] FALSE    FALSE
+[659,] FALSE    FALSE
+[660,] FALSE    FALSE
+[661,] FALSE    FALSE
+[662,] FALSE    FALSE
+[663,] FALSE    FALSE
+[664,] FALSE    FALSE
+[665,] FALSE    FALSE
+[666,] FALSE    FALSE
+[667,] FALSE    FALSE
+[668,] FALSE    FALSE
+[669,] FALSE    FALSE
+[670,] FALSE    FALSE
+[671,] FALSE    FALSE
+[672,] FALSE    FALSE
+[673,] FALSE    FALSE
+[674,] FALSE    FALSE
+[675,] FALSE    FALSE
+[676,] FALSE    FALSE
+[677,] FALSE    FALSE
+[678,] FALSE    FALSE
+[679,] FALSE    FALSE
+[680,] FALSE    FALSE
+[681,] FALSE    FALSE
+[682,] FALSE    FALSE
+[683,] FALSE    FALSE
+[684,] FALSE    FALSE
+[685,] FALSE    FALSE
+[686,] FALSE    FALSE
+[687,] FALSE    FALSE
+[688,] FALSE    FALSE
+[689,] FALSE    FALSE
+[690,] FALSE    FALSE
+[691,] FALSE    FALSE
+[692,] FALSE    FALSE
+[693,] FALSE    FALSE
+[694,] FALSE    FALSE
+[695,] FALSE    FALSE
+[696,] FALSE    FALSE
+[697,] FALSE    FALSE
+[698,] FALSE    FALSE
+[699,] FALSE    FALSE
+[700,] FALSE    FALSE
+[701,] FALSE    FALSE
+[702,] FALSE    FALSE
+[703,] FALSE    FALSE
+[704,] FALSE    FALSE
+[705,] FALSE    FALSE
+[706,] FALSE    FALSE
+[707,] FALSE    FALSE
+[708,] FALSE    FALSE
+[709,] FALSE    FALSE
+[710,] FALSE    FALSE
+[711,] FALSE    FALSE
+[712,] FALSE    FALSE
+[713,] FALSE    FALSE
+[714,] FALSE    FALSE
+[715,] FALSE    FALSE
+[716,] FALSE    FALSE
+[717,] FALSE    FALSE
+[718,] FALSE    FALSE
+[719,] FALSE    FALSE
+[720,] FALSE    FALSE
+[721,] FALSE    FALSE
+[722,] FALSE    FALSE
+[723,] FALSE    FALSE
+[724,] FALSE    FALSE
+[725,] FALSE    FALSE
+[726,] FALSE    FALSE
+[727,] FALSE    FALSE
+[728,] FALSE    FALSE
+[729,] FALSE    FALSE
+[730,] FALSE    FALSE
+[731,] FALSE    FALSE
+[732,] FALSE    FALSE
+[733,] FALSE    FALSE
+[734,] FALSE    FALSE
+[735,] FALSE    FALSE
+[736,] FALSE    FALSE
+[737,] FALSE    FALSE
+[738,] FALSE    FALSE
+[739,] FALSE    FALSE
+[740,] FALSE    FALSE
+[741,] FALSE    FALSE
+[742,] FALSE    FALSE
+[743,] FALSE    FALSE
+[744,] FALSE    FALSE
+[745,] FALSE    FALSE
+[746,] FALSE    FALSE
+[747,] FALSE    FALSE
+[748,] FALSE    FALSE
+[749,] FALSE    FALSE
+[750,] FALSE    FALSE
+[751,] FALSE    FALSE
+[752,] FALSE    FALSE
+[753,] FALSE    FALSE
+[754,] FALSE    FALSE
+[755,] FALSE    FALSE
+[756,] FALSE    FALSE
+[757,] FALSE    FALSE
+[758,] FALSE    FALSE
+[759,] FALSE    FALSE
+[760,] FALSE    FALSE
+[761,] FALSE    FALSE
+[762,] FALSE    FALSE
+[763,] FALSE    FALSE
+[764,] FALSE    FALSE
+[765,] FALSE    FALSE
+[766,] FALSE    FALSE
+[767,] FALSE    FALSE
+[768,] FALSE    FALSE
+[769,] FALSE    FALSE
+[770,] FALSE    FALSE
+[771,] FALSE    FALSE
+[772,] FALSE    FALSE
+[773,] FALSE    FALSE
+[774,] FALSE    FALSE
+[775,] FALSE    FALSE
+[776,] FALSE    FALSE
+[777,] FALSE    FALSE
+[778,] FALSE    FALSE
+[779,] FALSE    FALSE
+[780,] FALSE    FALSE
+[781,] FALSE    FALSE
+[782,] FALSE    FALSE
+[783,] FALSE    FALSE
+[784,] FALSE    FALSE
+[785,] FALSE    FALSE
+[786,] FALSE    FALSE
+[787,] FALSE    FALSE
+[788,] FALSE    FALSE
+[789,] FALSE    FALSE
+[790,] FALSE    FALSE
+[791,] FALSE    FALSE
+[792,] FALSE    FALSE
+[793,] FALSE    FALSE
+[794,] FALSE    FALSE
+[795,] FALSE    FALSE
+[796,] FALSE    FALSE
+[797,] FALSE    FALSE
+[798,] FALSE    FALSE
+[799,] FALSE    FALSE
+[800,] FALSE    FALSE
+[801,] FALSE    FALSE
+[802,] FALSE    FALSE
+[803,] FALSE    FALSE
+[804,] FALSE    FALSE
+[805,] FALSE    FALSE
+[806,] FALSE    FALSE
+[807,] FALSE    FALSE
+[808,] FALSE    FALSE
+[809,] FALSE    FALSE
+[810,] FALSE    FALSE
+[811,] FALSE    FALSE
+[812,] FALSE    FALSE
+[813,] FALSE    FALSE
+[814,] FALSE    FALSE
+[815,] FALSE    FALSE
+[816,] FALSE    FALSE
+[817,] FALSE    FALSE
+[818,] FALSE    FALSE
+[819,] FALSE    FALSE
+[820,] FALSE    FALSE
+[821,] FALSE    FALSE
+[822,] FALSE    FALSE
+[823,] FALSE    FALSE
+[824,] FALSE    FALSE
+[825,] FALSE    FALSE
+[826,] FALSE    FALSE
+[827,] FALSE    FALSE
+[828,] FALSE    FALSE
+[829,] FALSE    FALSE
+[830,] FALSE    FALSE
+[831,] FALSE    FALSE
+[832,] FALSE    FALSE
+[833,] FALSE    FALSE
+[834,] FALSE    FALSE
+[835,] FALSE    FALSE
+[836,] FALSE    FALSE
+[837,] FALSE    FALSE
+[838,] FALSE    FALSE
+[839,] FALSE    FALSE
+[840,] FALSE    FALSE
+[841,] FALSE    FALSE
+[842,] FALSE    FALSE
+[843,] FALSE    FALSE
+[844,] FALSE    FALSE
+[845,] FALSE    FALSE
+[846,] FALSE    FALSE
+[847,] FALSE    FALSE
+[848,] FALSE    FALSE
+[849,] FALSE    FALSE
+[850,] FALSE    FALSE
+[851,] FALSE    FALSE
+[852,] FALSE    FALSE
+[853,] FALSE    FALSE
+[854,] FALSE    FALSE
+[855,] FALSE    FALSE
+[856,] FALSE    FALSE
+[857,] FALSE    FALSE
+[858,] FALSE    FALSE
+[859,] FALSE    FALSE
+[860,] FALSE    FALSE
+[861,] FALSE    FALSE
+[862,] FALSE    FALSE
+[863,] FALSE    FALSE
+[864,] FALSE    FALSE
+[865,] FALSE    FALSE
+[866,] FALSE    FALSE
+[867,] FALSE    FALSE
+[868,] FALSE    FALSE
+[869,] FALSE    FALSE
+[870,] FALSE    FALSE
+[871,] FALSE    FALSE
+[872,] FALSE    FALSE
+[873,] FALSE    FALSE
+[874,] FALSE    FALSE
+[875,] FALSE    FALSE
+[876,] FALSE    FALSE
+[877,] FALSE    FALSE
+[878,] FALSE    FALSE
+[879,] FALSE    FALSE
+[880,] FALSE    FALSE
+[881,] FALSE    FALSE
+[882,] FALSE    FALSE
+[883,] FALSE    FALSE
+[884,] FALSE    FALSE
+[885,] FALSE    FALSE
+[886,] FALSE    FALSE
+[887,] FALSE    FALSE
+[888,] FALSE    FALSE
+[889,] FALSE    FALSE
+[890,] FALSE    FALSE
+[891,] FALSE    FALSE</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># colSums</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(titanic))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PassengerId    Survived      Pclass        Name         Sex         Age 
+          0           0           0           0           0         177 
+      SibSp       Parch      Ticket        Fare       Cabin    Embarked 
+          0           0           0           0           0           0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># class</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(titanic<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "numeric"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cor</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(titanic<span class="sc">$</span>Age, titanic<span class="sc">$</span>Fare, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09606669</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># by</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(<span class="at">data =</span> titanic<span class="sc">$</span>Fare, <span class="at">INDICES =</span> titanic<span class="sc">$</span>Pclass, <span class="at">FUN =</span> mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>titanic$Pclass: 1
+[1] 84.15469
+------------------------------------------------------------ 
+titanic$Pclass: 2
+[1] 20.66218
+------------------------------------------------------------ 
+titanic$Pclass: 3
+[1] 13.67555</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ifelse</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>survival <span class="ot">=</span> <span class="fu">ifelse</span>(titanic<span class="sc">$</span>Survived <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Survived"</span>, <span class="st">"Did_Not_Survive"</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(titanic<span class="sc">$</span>survival)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Did_Not_Survive        Survived 
+            549             342 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># case_when</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>age_group <span class="ot">=</span> <span class="fu">case_when</span>(</span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  titanic<span class="sc">$</span>Age <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"Child"</span>,</span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  titanic<span class="sc">$</span>Age <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Adult"</span>,</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  titanic<span class="sc">$</span>Age <span class="sc">&gt;=</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">"Senior"</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(titanic<span class="sc">$</span>age_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Adult  Child Senior 
+   575    113     26 </code></pre>
+</div>
+</div>
+<ol start="18" type="1">
+<li>In the dataset in #17, practice the follows. You can reuse the code of 17.</li>
+</ol>
+<ul>
+<li><p>Create a categorical variable from a continuous variable</p></li>
+<li><p>From one categorical variable, create a new categorical variable with fewer categories</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># continuous variable to categorical variable</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(titanic<span class="sc">$</span>age_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Adult  Child Senior 
+   575    113     26 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># categorical variable with fewer categories</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>class_group <span class="ot">=</span> <span class="fu">ifelse</span>(</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  titanic<span class="sc">$</span>Pclass <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"First_Class"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Other_Class"</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(titanic<span class="sc">$</span>class_group)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+First_Class Other_Class 
+        216         675 </code></pre>
+</div>
+</div>
+<p>If you do not have a data, you can use <a href="https://www.kaggle.com/competitions/titanic/overview">the titanic dataset</a>, which can be downloaded at <a href="https://bryantstats.github.io/math421/data/titanic.csv">this link</a></p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
