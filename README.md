@@ -10,4 +10,3 @@
 
 [Assignment 4](assignment4q.html)
 
-Checking
