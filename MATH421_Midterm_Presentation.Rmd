@@ -1,0 +1,80 @@
+---
+title: ""
+pagetitle: "MATH421 Midterm Presentation"
+output:
+  html_document:
+    self_contained: true
+    theme: null
+    highlight: null
+---
+
+<style>
+
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#17212b;color:#233044;font-family:Arial,sans-serif}
+.main-container{margin:0!important;padding:0!important;max-width:none!important}
+#stage{position:fixed;width:1280px;height:720px;left:50%;top:50%;transform-origin:center center;background:white}
+.slide{display:none;position:absolute;inset:0;background:#fff;box-sizing:border-box;padding:0}
+.slide.active{display:block}
+.slide h2{position:absolute;left:64px;top:30px;width:1152px;height:72px;margin:0;font-size:42px;line-height:1.18;color:#17354d;font-weight:700}
+.cover h2{top:150px;font-size:58px;line-height:1.12}
+.subtitle{position:absolute;left:64px;top:245px;font-size:34px}
+.read-aloud{position:absolute;left:64px;top:155px;width:1152px;font-size:33px;line-height:1.28}
+.read-aloud p{margin:0 0 28px}
+.cover .read-aloud{top:355px;width:1100px;font-size:32px}
+.plot{position:absolute;left:64px;top:103px;width:1152px;height:445px;object-fit:contain}
+.with-plot .read-aloud{top:565px;font-size:27px;line-height:1.2}
+.with-plot .read-aloud p{margin:0}
+.results .read-aloud{top:415px;font-size:30px;line-height:1.24}
+.results.four-rows .read-aloud{top:445px}
+.results .read-aloud p{margin-bottom:26px}
+table{position:absolute;left:100px;top:140px;width:1080px;border-collapse:collapse;table-layout:fixed;font-size:29px;line-height:1.15}
+th,td{box-sizing:border-box;border:2px solid white;height:66px;padding:8px 10px;text-align:left;vertical-align:middle}
+th{background:#17354d;color:white;font-size:27px}
+td{background:#f3f6f8}
+th:first-child,td:first-child{width:720px}
+.page{position:absolute;right:36px;bottom:16px;color:#6b7280;font-size:17px}
+#controls{position:fixed;bottom:5px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:99;opacity:.25}
+#controls:hover,#controls:focus-within{opacity:1}
+#controls button{border:1px solid #718096;background:#fff;color:#17354d;font:14px Arial;padding:5px 12px;border-radius:3px;cursor:pointer}
+@media print{html,body{overflow:visible;background:white;height:auto}#stage{position:static;transform:none!important;width:1280px;height:auto}.slide{display:block!important;position:relative;width:1280px;height:720px;break-after:page}#controls{display:none}@page{size:13.333in 7.5in;margin:0}}
+
+</style>
+<main id="stage" aria-label="MATH421 Midterm Presentation">
+<section class="slide cover" aria-label="Rhode Island hospital discharges" data-slide="1"><h2>Rhode Island hospital discharges</h2><div class="subtitle">MATH 421 Midterm</div><div class="read-aloud"><p>I studied hospital stays that ended in 2018. I looked at the charts first, then compared models for hospital charges and longer stays.</p></div><div class="page">1 / 22</div></section>
+<section class="slide" aria-label="The data" data-slide="2"><h2>The data</h2><div class="read-aloud"><p>My data comes from the Rhode Island Department of Health. I used 131,478 hospital discharge records from 2018.</p><p>A record represents a hospital stay. The same person could appear more than once.</p><p>I removed four columns with missing values. The charts use the full 2018 group.</p></div><div class="page">2 / 22</div></section>
+<section class="slide with-plot" aria-label="Admissions by month" data-slide="3"><h2>Admissions by month</h2><img class="plot" src="midterm_assets/monthly.png" alt="Admissions by month"><div class="read-aloud"><p>October had the most records, with 11,408. February had the fewest, with 10,259. These counts group the 2018 discharge records by admission month. They do not adjust for the number of days in each month.</p></div><div class="page">3 / 22</div></section>
+<section class="slide with-plot" aria-label="Admissions by sex" data-slide="4"><h2>Admissions by sex</h2><img class="plot" src="midterm_assets/monthly_sex.png" alt="Admissions by sex"><div class="read-aloud"><p>There were 72,675 female records and 58,799 male records. Four records had an unknown sex code. The chart shows more female than male records in every admission month. These are hospital counts, not population rates.</p></div><div class="page">4 / 22</div></section>
+<section class="slide with-plot" aria-label="Age at admission" data-slide="5"><h2>Age at admission</h2><img class="plot" src="midterm_assets/age.png" alt="Age at admission"><div class="read-aloud"><p>The median recorded age was 56. The large group near age zero includes newborn hospital care. The data also includes many older adults. This shows that the hospitals serve very different age groups.</p></div><div class="page">5 / 22</div></section>
+<section class="slide with-plot" aria-label="Age by sex" data-slide="6"><h2>Age by sex</h2><img class="plot" src="midterm_assets/age_sex.png" alt="Age by sex"><div class="read-aloud"><p>Female records were about 0.63 years younger than male records on average. The difference was small. The boxes show a wide range of ages in both groups. Differences in the types of care may help explain the pattern.</p></div><div class="page">6 / 22</div></section>
+<section class="slide with-plot" aria-label="Records by hospital" data-slide="7"><h2>Records by hospital</h2><img class="plot" src="midterm_assets/provider.png" alt="Records by hospital"><div class="read-aloud"><p>Rhode Island Hospital had the most records, with 36,693. Miriam and Women and Infants followed. Hospital volume matters when comparing total charges. A hospital with more stays can have higher total charges even without higher charges per stay.</p></div><div class="page">7 / 22</div></section>
+<section class="slide with-plot" aria-label="The distribution of charges" data-slide="8"><h2>The distribution of charges</h2><img class="plot" src="midterm_assets/charges.png" alt="The distribution of charges"><div class="read-aloud"><p>The median total charge was $21,854. The mean was about $34,317. The higher mean shows the influence of very expensive stays. The dollar axis uses uneven spacing so a wide range of charges can fit on the chart.</p></div><div class="page">8 / 22</div></section>
+<section class="slide with-plot" aria-label="Charges by hospital" data-slide="9"><h2>Charges by hospital</h2><img class="plot" src="midterm_assets/charge_provider.png" alt="Charges by hospital"><div class="read-aloud"><p>The boxes compare typical charges and their spread across hospitals. Some hospitals also have very expensive stays outside the boxes. Hospitals provide different services and treat different cases. This chart alone cannot tell us which hospital provides better care.</p></div><div class="page">9 / 22</div></section>
+<section class="slide with-plot" aria-label="Length of stay by season" data-slide="10"><h2>Length of stay by season</h2><img class="plot" src="midterm_assets/season.png" alt="Length of stay by season"><div class="read-aloud"><p>I based seasons on admission month. Average stays ranged from about 4.84 to 4.96 days. Summer had the highest average, but the seasonal differences were small. Each season also included a small number of much longer stays.</p></div><div class="page">10 / 22</div></section>
+<section class="slide with-plot" aria-label="Average age by month" data-slide="11"><h2>Average age by month</h2><img class="plot" src="midterm_assets/age_month.png" alt="Average age by month"><div class="read-aloud"><p>Average recorded age was highest in January, at about 51.79 years. It was lowest in September, at about 50.57 years. The total difference was only about 1.23 years. The monthly averages were fairly similar.</p></div><div class="page">11 / 22</div></section>
+<section class="slide with-plot" aria-label="Length of stay and charges" data-slide="12"><h2>Length of stay and charges</h2><img class="plot" src="midterm_assets/stay_charge.png" alt="Length of stay and charges"><div class="read-aloud"><p>Longer stays generally had higher charges. The correlation was about 0.79, which shows a strong positive relationship. Charges still varied among stays of similar length. This relationship does not prove that one extra day causes a fixed increase in charges.</p></div><div class="page">12 / 22</div></section>
+<section class="slide with-plot" aria-label="Animation of monthly hospital counts" data-slide="13"><h2>Animation of monthly hospital counts</h2><img class="plot" src="midterm_assets/provider_month.gif" alt="Animation of monthly hospital counts"><div class="read-aloud"><p>This animation compares hospital counts across admission months. The same scale makes the months easier to compare. The changing bars show how hospital volume varies during the year. The frames between months are visual transitions, not extra observations.</p></div><div class="page">13 / 22</div></section>
+<section class="slide" aria-label="Predicting low or high charges" data-slide="14"><h2>Predicting low or high charges</h2><div class="read-aloud"><p>I labeled a stay low if its charge was below $21,854. I labeled it high if its charge was equal to or above that amount.</p><p>I used age, sex, race or ethnicity, hospital, admission month, discharge month, admission type, campus, and length of stay.</p><p>I used 10% of records for training and 90% for testing after removing blank race and admission-type values. Because the inputs include length of stay, this model uses information available after the stay.</p></div><div class="page">14 / 22</div></section>
+<section class="slide results" aria-label="Comparing the charge models" data-slide="15"><h2>Comparing the charge models</h2><table aria-label="Comparing the charge models"><tr><th>Model</th><th>Average validation accuracy</th></tr><tr><td>Decision tree</td><td>80.64%</td></tr><tr><td>Random forest</td><td>84.01%</td></tr></table><div class="read-aloud"><p>I compared a decision tree with a random forest. A random forest combines the predictions of many trees.</p><p>I used the same five training folds for both models. Random forest had the higher average validation accuracy, so I selected it before checking the test results.</p></div><div class="page">15 / 22</div></section>
+<section class="slide results" aria-label="Testing the charge model" data-slide="16"><h2>Testing the charge model</h2><table aria-label="Testing the charge model"><tr><th>Result</th><th>Value</th></tr><tr><td>Random forest</td><td>83.63%</td></tr><tr><td>Always guess the most common class</td><td>50.64%</td></tr></table><div class="read-aloud"><p>The selected random forest correctly classified about 84 out of 100 test records.</p><p>Always guessing the most common charge group would correctly classify about 51 out of 100. The model improved substantially on that simple comparison.</p></div><div class="page">16 / 22</div></section>
+<section class="slide" aria-label="A second target: longer stays" data-slide="17"><h2>A second target: longer stays</h2><div class="read-aloud"><p>For my second task, I predicted whether a hospital stay lasted more than seven days. Seven days or less counted as a short stay.</p><p>I used age, sex, race or ethnicity, hospital, admission month, admission type, and campus.</p><p>I excluded length of stay, discharge month, and charges from the inputs. I repeated the 10% training split and the same five-fold comparison of tree and forest models.</p></div><div class="page">17 / 22</div></section>
+<section class="slide results" aria-label="Comparing the long-stay models" data-slide="18"><h2>Comparing the long-stay models</h2><table aria-label="Comparing the long-stay models"><tr><th>Model</th><th>Average validation accuracy</th></tr><tr><td>Decision tree</td><td>85.86%</td></tr><tr><td>Random forest</td><td>85.97%</td></tr></table><div class="read-aloud"><p>Random forest had a slightly higher average validation accuracy, so I selected it for the second task too.</p><p>The difference between the models was very small. This result gave me a reason to examine the test results more carefully.</p></div><div class="page">18 / 22</div></section>
+<section class="slide results four-rows" aria-label="The long-stay model has a weakness" data-slide="19"><h2>The long-stay model has a weakness</h2><table aria-label="The long-stay model has a weakness"><tr><th>Result</th><th>Value</th></tr><tr><td>Overall test accuracy</td><td>85.95%</td></tr><tr><td>Always guess the most common class</td><td>85.26%</td></tr><tr><td>Actual long stays detected</td><td>8.40%</td></tr></table><div class="read-aloud"><p>The model barely improved on always guessing the most common group. It detected only about 8 out of every 100 actual long stays.</p><p>That means it missed most long stays. Its high overall accuracy does not make it a useful tool for identifying longer admissions.</p></div><div class="page">19 / 22</div></section>
+<section class="slide" aria-label="Coding challenges" data-slide="20"><h2>Coding challenges</h2><div class="read-aloud"><p>The original file contained more than two million records from 2003 through 2018. Reading the year column first helped me import the relevant records with less memory.</p><p>Some R packages were missing when I tried to knit. Those packages need to be installed before the notebook can run.</p><p>The animation also had an image-size error. Setting its dimensions to pixels fixed that problem.</p></div><div class="page">20 / 22</div></section>
+<section class="slide" aria-label="Limits of the results" data-slide="21"><h2>Limits of the results</h2><div class="read-aloud"><p>The codebook says ages 90 and older are grouped, but the file contains ages up to 110. I kept the recorded ages and noted the mismatch.</p><p>The data records billed charges, which can differ from actual costs or payments.</p><p>These results describe this discharge group. They do not prove cause and effect or guarantee that a model will work in a future year.</p></div><div class="page">21 / 22</div></section>
+<section class="slide" aria-label="What I learned" data-slide="22"><h2>What I learned</h2><div class="read-aloud"><p>Hospital stays and charges vary widely, even within the same hospital. Looking at several charts helped me understand that variation.</p><p>Random forest classified charge groups better than the decision tree in this comparison.</p><p>The second task showed why accuracy alone can be misleading. I also need to check whether a model finds the outcome I care about.</p></div><div class="page">22 / 22</div></section>
+</main>
+<nav id="controls" aria-label="Presentation controls"><button id="prev" aria-label="Previous slide">Previous</button><button id="next" aria-label="Next slide">Next</button><button id="full">Full screen</button></nav>
+<script>
+
+(()=>{
+ const slides=Array.from(document.querySelectorAll('.slide'));
+ let current=Math.max(0,Math.min(slides.length-1,parseInt(location.hash.slice(1),10)-1||0));
+ function show(n){current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',i!==current)});history.replaceState(null,'','#'+(current+1));document.title='MATH421 Midterm: '+(current+1)+' / '+slides.length;}
+ function fit(){document.getElementById('stage').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1280,innerHeight/720)+')'}
+ document.getElementById('prev').onclick=()=>show(current-1);
+ document.getElementById('next').onclick=()=>show(current+1);
+ document.getElementById('full').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.()};
+ addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);else if(e.key.toLowerCase()==='f')document.getElementById('full').click()});
+ addEventListener('resize',fit);show(current);fit();
+})();
+</script>
