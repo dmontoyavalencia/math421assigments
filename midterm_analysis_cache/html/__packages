@@ -1,0 +1,12 @@
+haven
+dplyr
+tidyr
+ggplot2
+lattice
+caret
+rpart
+rpart.plot
+ranger
+gganimate
+gifski
+knitr
