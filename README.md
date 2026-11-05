@@ -18,6 +18,8 @@
 
 [Assignment 7](assignment7.html)
 
+[Assignment 8](assignment8--1-.html)
+
 [Link to the plot](average_age.png)
 
 [Midterm Notebook](MATH421_Midterm.html)

@@ -1,0 +1,217 @@
+
+---
+output: 
+  html_document: default
+  pdf_document: default
+  word_document: default
+title: "Assignment 8: Visualization - Making a bar race"
+---
+
+***How to do it?***: 
+
+- Open the Rmarkdown file of this assignment ([link](assignment8.Rmd)) in Rstudio. 
+
+- Right under each **question**, insert  a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question. 
+
+- `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.  
+
+-  Publish the html file to your Githiub Page. 
+
+***Submission***: Submit the link on Github of the assignment to Canvas
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+-------
+
+1. Install two packages `gganimate` and `gifski` then restart Rstudio. Using the `Adult Census Income` data, make an animation using `geom_point` and `transition_states`.
+
+```{r install-animation-packages, eval=FALSE}
+install.packages(c("gganimate", "gifski"))
+```
+
+Run the installation once in the Console, then restart RStudio.
+
+```{r adult-scatter}
+library(tidyverse)
+library(gganimate)
+library(gifski)
+
+adult <- read_csv("adult_census.csv", show_col_types = FALSE)
+
+# Use a fixed random sample so the points are easier to see.
+set.seed(421)
+adult_sample <- adult %>%
+  drop_na(age, hours.per.week, income) %>%
+  slice_sample(n = 1500) %>%
+  mutate(person = row_number(), income = factor(income))
+
+adult_points <- adult_sample %>%
+  ggplot(aes(x = age, y = hours.per.week, group = person)) +
+  geom_point(alpha = 0.4, size = 1.6, color = "steelblue",
+             position = position_jitter(width = 0.3, height = 0.3,
+                                        seed = 421)) +
+  transition_states(income, transition_length = 1, state_length = 3,
+                    wrap = FALSE) +
+  enter_fade() +
+  exit_fade() +
+  labs(title = "Age and hours worked: {closest_state}",
+       x = "Age (years)", y = "Hours worked per week",
+       caption = "Adult Census Income data. Fixed sample of 1,500 adults.") +
+  theme_minimal()
+
+animate(adult_points, nframes = 44, fps = 8,
+        width = 800, height = 480, units = "px", res = 96,
+        renderer = gifski_renderer())
+```
+
+Each point is one person. The animation switches between the two income groups
+while keeping the same axes. The points are slightly offset to show overlapping
+ages and work hours.
+
+
+2. Using the `Adult Census Income` data, make an animation using `geom_bar` and `transition_states`.
+
+```{r adult-bars}
+education_levels <- c("HS-grad", "Some-college", "Assoc-voc",
+                      "Bachelors", "Masters")
+
+adult_education <- adult %>%
+  filter(education %in% education_levels) %>%
+  drop_na(sex, income) %>%
+  mutate(education = factor(education, levels = education_levels))
+
+adult_bars <- adult_education %>%
+  ggplot(aes(x = education, fill = income)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_fill_manual(values = c("<=50K" = "steelblue", ">50K" = "orange2")) +
+  transition_states(sex, transition_length = 1, state_length = 3,
+                    wrap = FALSE) +
+  labs(title = "Income by education: {closest_state}",
+       x = "Education level", y = "Share within education level",
+       fill = "Annual income",
+       caption = "Adult Census Income data. Five education levels shown.") +
+  theme_minimal()
+
+animate(adult_bars, nframes = 44, fps = 8,
+        width = 800, height = 480, units = "px", res = 96,
+        renderer = gifski_renderer())
+```
+
+Each bar adds up to 100%. This lets us compare the share earning more than
+$50,000 across education levels as the animation switches between the recorded
+sex groups, even when the groups have different numbers of people.
+
+
+3. Use the WHO's dataset at [this link](https://bryantstats.github.io/math421/data/WHO-COVID-19-global-data.csv). Make a top-10 bar race by months between countries on the number of deaths by Covid 19 in 2021.
+
+```{r who-monthly-race}
+who <- read_csv(
+  "https://bryantstats.github.io/math421/data/WHO-COVID-19-global-data.csv",
+  show_col_types = FALSE
+)
+
+who_top10 <- who %>%
+  mutate(Date_reported = as.Date(Date_reported)) %>%
+  filter(lubridate::year(Date_reported) == 2021) %>%
+  filter(!is.na(New_deaths), !is.na(Country), Country != "") %>%
+  mutate(month = lubridate::month(Date_reported, label = TRUE, abbr = FALSE)) %>%
+  group_by(month, Country) %>%
+  summarise(deaths = sum(New_deaths), .groups = "drop") %>%
+  arrange(month, desc(deaths), Country) %>%
+  group_by(month) %>%
+  slice_head(n = 10) %>%
+  mutate(rank = row_number()) %>%
+  ungroup()
+
+who_race <- who_top10 %>%
+  ggplot(aes(x = deaths, y = 11 - rank, group = Country)) +
+  geom_col(orientation = "y", width = 0.75, fill = "steelblue") +
+  geom_text(aes(label = stringr::str_wrap(Country, 27)),
+            x = 0, hjust = 1.05, size = 3.5, lineheight = 0.85) +
+  scale_y_continuous(breaks = NULL, limits = c(0.5, 10.5)) +
+  scale_x_continuous(labels = scales::label_comma(),
+                     expand = expansion(mult = c(0, 0.06))) +
+  coord_cartesian(clip = "off") +
+  transition_states(month, transition_length = 0.5, state_length = 3,
+                    wrap = FALSE) +
+  enter_fade() +
+  exit_fade() +
+  labs(title = "Top 10 countries by reported COVID-19 deaths",
+       subtitle = "{closest_state} 2021",
+       x = "Deaths reported during the month", y = NULL,
+       caption = "Source: WHO COVID-19 global data, course copy.") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        plot.margin = margin(12, 28, 12, 155))
+
+animate(who_race, nframes = 96, fps = 8,
+        width = 960, height = 570, units = "px", res = 96,
+        renderer = gifski_renderer())
+```
+
+I summed `New_deaths` for each country and reporting month in 2021 and kept
+the ten largest totals each month. The bars show deaths reported during that
+month. Values between months are animation transitions.
+
+
+4. Make a bar race using a dataset of your own interest. You may use the dataset that we use in class (https://bryantstats.github.io/math421/data/all-states-history.csv) but you should make a different bar racev from ones in the slides.
+
+```{r new-england-race}
+us_states <- read_csv("us-states.csv", show_col_types = FALSE)
+new_england <- c("Connecticut", "Maine", "Massachusetts",
+                 "New Hampshire", "Rhode Island", "Vermont")
+
+# The cases column is cumulative. Subtract consecutive month-end totals.
+# Keep December 2020 so January 2021 has a starting total.
+new_england_monthly <- us_states %>%
+  mutate(date = lubridate::mdy(date)) %>%
+  filter(state %in% new_england,
+         date >= as.Date("2020-12-01"), date < as.Date("2022-01-01")) %>%
+  mutate(month = lubridate::floor_date(date, "month")) %>%
+  arrange(date) %>%
+  group_by(state, month) %>%
+  summarise(total_cases = last(cases), .groups = "drop") %>%
+  arrange(state, month) %>%
+  group_by(state) %>%
+  mutate(new_cases = total_cases - lag(total_cases)) %>%
+  ungroup() %>%
+  filter(lubridate::year(month) == 2021) %>%
+  arrange(month, desc(new_cases), state) %>%
+  group_by(month) %>%
+  mutate(rank = row_number(),
+         month_name = lubridate::month(month, label = TRUE, abbr = FALSE)) %>%
+  ungroup()
+
+new_england_race <- new_england_monthly %>%
+  ggplot(aes(x = new_cases, y = 7 - rank, group = state)) +
+  geom_col(orientation = "y", width = 0.75, fill = "darkcyan") +
+  geom_text(aes(label = state), x = 0, hjust = 1.05, size = 4) +
+  scale_y_continuous(breaks = NULL, limits = c(0.5, 6.5)) +
+  scale_x_continuous(labels = scales::label_comma(),
+                     expand = expansion(mult = c(0, 0.06))) +
+  coord_cartesian(clip = "off") +
+  transition_states(month_name, transition_length = 0.5, state_length = 3,
+                    wrap = FALSE) +
+  labs(title = "New COVID-19 cases in New England",
+       subtitle = "{closest_state} 2021",
+       x = "New reported cases during the month", y = NULL,
+       caption = "Source: us-states.csv. Counts are not adjusted for population.") +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank(),
+        plot.margin = margin(12, 28, 12, 110))
+
+animate(new_england_race, nframes = 96, fps = 8,
+        width = 900, height = 490, units = "px", res = 96,
+        renderer = gifski_renderer())
+```
+
+This race compares all six New England states on new reported cases each
+month. Subtracting consecutive month-end counts makes it possible for a
+state's bar to shrink when fewer new cases are reported. A state's position
+shows its rank by case count, not its infection rate.
+
+
