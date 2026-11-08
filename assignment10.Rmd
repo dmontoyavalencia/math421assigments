@@ -1,0 +1,261 @@
+---
+output: 
+  html_document: default
+  pdf_document: default
+  word_document: default
+title: "Assignment 10: Predictive Modeling - Part 1"
+---
+
+***How to do it?***: 
+
+- Open the Rmarkdown file of this assignment ([link](assignment10.Rmd)) in Rstudio. 
+
+- Right under each **question**, insert  a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question. 
+
+- `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.  
+
+-  Publish the html file to your Githiub Page. 
+
+***Submission***: Submit the link on Github of the assignment to Canvas
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE,
+                      fig.width = 9, fig.height = 6)
+library(tidyverse)
+library(caret)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+```
+
+
+-------
+
+1. Use the `Adult Census Income` dataset.  We will predict the income (whether or not it is more than 50k or not) of an adult. Import the dataset.  Partition the data into 80% training and 20% testing.  
+
+
+```{r import-and-split}
+# Keep adult_census.csv in the same folder as this R Markdown file.
+# The question marks in this file represent missing values.
+adult <- read_csv("adult_census.csv", na = c("", "NA", "?"))
+rows_before <- nrow(adult)
+colSums(is.na(adult))
+
+df <- adult %>%
+  rename(target = income) %>%
+  drop_na() %>%
+  mutate(across(where(is.character), as.factor),
+         target = factor(target, levels = c("<=50K", ">50K")))
+
+set.seed(421)
+splitIndex <- createDataPartition(df$target, p = .80, list = FALSE)
+df_train <- df[splitIndex, ]
+df_test <- df[-splitIndex, ]
+
+knitr::kable(data.frame(
+  Dataset = c("Original", "After removing missing rows", "Training", "Testing"),
+  Records = c(rows_before, nrow(df), nrow(df_train), nrow(df_test))
+))
+table(df$target)
+```
+
+I removed `r rows_before - nrow(df)` records containing missing values,
+leaving `r nrow(df)` complete records. The target is a factor with two
+categories: `<=50K` and `>50K`. The positive class is `>50K`.
+The split uses about 80% for training and 20% for testing, with similar
+income proportions in each set. All eight models use this same split.
+
+
+2. Practice Decision Tree.  Do the follows:
+
+  - Use `rpart` package, create a decision tree with maximum depth of 3. 
+  
+  - Calculate the accuracy of the model on the testing data. Notice that the positive outcome here is not `1` but `>50K` or `<50K`. 
+  
+  - Plot the tree
+  
+  - Plot the variable importance by the tree
+  
+
+```{r first-decision-tree}
+tree_model <- rpart(target ~ ., data = df_train, method = "class",
+                    control = rpart.control(maxdepth = 3))
+
+tree_pred <- predict(tree_model, df_test, type = "class")
+tree_cm <- confusionMatrix(data = tree_pred, reference = df_test$target,
+                           positive = ">50K")
+tree_cm
+tree_cm$overall["Accuracy"]
+```
+
+The first decision tree has testing accuracy of
+**`r round(100 * tree_cm$overall["Accuracy"], 2)`%**.
+
+```{r plot-decision-tree}
+rpart.plot(tree_model, main = "Adult income: decision tree with maximum depth 3",
+           extra = 104, fallen.leaves = TRUE, faclen = 3, varlen = 0, cex = .65)
+```
+
+```{r tree-importance}
+tree_importance <- sort(tree_model$variable.importance, decreasing = TRUE)
+par(mar = c(10, 5, 5, 2))
+barplot(tree_importance, las = 2, cex.names = .8, col = "steelblue",
+        main = "Variable importance: depth-3 decision tree", cex.main = .9,
+        ylab = "Importance")
+```
+
+Category names in the tree are abbreviated to fit the figure.
+The tree uses a series of splits to classify income. A larger importance
+value means a variable contributes more to this tree's splits; it does
+not show that the variable causes higher income.
+
+
+3. Create 3 more trees and compare the testing accuracy of these trees, which tree give the highest testing accuracy.
+
+
+```{r three-more-trees}
+# A smaller cp permits additional splits in the three deeper trees.
+tree_2 <- rpart(target ~ ., data = df_train, method = "class",
+               control = rpart.control(maxdepth = 5, cp = .001))
+tree_3 <- rpart(target ~ ., data = df_train, method = "class",
+               control = rpart.control(maxdepth = 7, cp = .001))
+tree_4 <- rpart(target ~ ., data = df_train, method = "class",
+               control = rpart.control(maxdepth = 10, cp = .001))
+
+tree_2_cm <- confusionMatrix(predict(tree_2, df_test, type = "class"),
+                             df_test$target, positive = ">50K")
+tree_3_cm <- confusionMatrix(predict(tree_3, df_test, type = "class"),
+                             df_test$target, positive = ">50K")
+tree_4_cm <- confusionMatrix(predict(tree_4, df_test, type = "class"),
+                             df_test$target, positive = ">50K")
+
+tree_results <- data.frame(
+  Model = c("Tree 1", "Tree 2", "Tree 3", "Tree 4"),
+  Maximum_depth = c(3, 5, 7, 10),
+  cp = c(.01, .001, .001, .001),
+  Accuracy = c(tree_cm$overall["Accuracy"], tree_2_cm$overall["Accuracy"],
+               tree_3_cm$overall["Accuracy"], tree_4_cm$overall["Accuracy"]),
+  row.names = NULL
+)
+knitr::kable(tree_results, digits = 4)
+
+best_trees <- tree_results %>% filter(Accuracy == max(Accuracy))
+best_trees
+```
+
+The highest tree testing accuracy is
+**`r round(100 * max(tree_results$Accuracy), 2)`%**, achieved by
+**`r paste(best_trees$Model, collapse = ", ")`**.
+Maximum depth limits the number of splitting levels. The complexity
+parameter `cp` controls how much a proposed split must improve the fit;
+a smaller value permits more splits. The table records both settings.
+
+
+4. Practice Random Forest.  Do the follows: 
+
+  - Use `randomForest` package, create a random forest of 1000 trees. 
+  
+  - Calculate the accuracy of the model on the testing data. 
+  
+  - Plot the variable importance by the forest
+
+
+```{r first-random-forest}
+set.seed(421)
+forest_model <- randomForest(target ~ ., data = df_train, ntree = 1000)
+
+forest_pred <- predict(forest_model, df_test, type = "class")
+forest_cm <- confusionMatrix(data = forest_pred, reference = df_test$target,
+                             positive = ">50K")
+forest_cm
+forest_cm$overall["Accuracy"]
+```
+
+The random forest with 1,000 trees has testing accuracy of
+**`r round(100 * forest_cm$overall["Accuracy"], 2)`%**.
+
+```{r forest-importance}
+varImpPlot(forest_model, type = 2,
+           main = "Variable importance: random forest with 1,000 trees")
+```
+
+The forest combines predictions from many trees using a majority vote.
+The importance plot uses Mean Decrease Gini, which summarizes how much
+each predictor helps separate classes across the forest's splits.
+These scores describe predictive use, not causal effects.
+
+
+5. Create 3 more forests and compare the testing accuracy of these forests, which forest give the highest testing accuracy.
+
+
+```{r three-more-forests}
+# Change the number of trees while keeping the other settings the same.
+set.seed(421)
+forest_2 <- randomForest(target ~ ., data = df_train, ntree = 100)
+set.seed(421)
+forest_3 <- randomForest(target ~ ., data = df_train, ntree = 500)
+set.seed(421)
+forest_4 <- randomForest(target ~ ., data = df_train, ntree = 1500)
+
+forest_2_cm <- confusionMatrix(predict(forest_2, df_test, type = "class"),
+                               df_test$target, positive = ">50K")
+forest_3_cm <- confusionMatrix(predict(forest_3, df_test, type = "class"),
+                               df_test$target, positive = ">50K")
+forest_4_cm <- confusionMatrix(predict(forest_4, df_test, type = "class"),
+                               df_test$target, positive = ">50K")
+
+forest_results <- data.frame(
+  Model = c("Forest 1", "Forest 2", "Forest 3", "Forest 4"),
+  Trees = c(1000, 100, 500, 1500),
+  Accuracy = c(forest_cm$overall["Accuracy"], forest_2_cm$overall["Accuracy"],
+               forest_3_cm$overall["Accuracy"], forest_4_cm$overall["Accuracy"]),
+  row.names = NULL
+)
+knitr::kable(forest_results, digits = 4)
+
+best_forests <- forest_results %>% filter(Accuracy == max(Accuracy))
+best_forests
+```
+
+The highest forest testing accuracy is
+**`r round(100 * max(forest_results$Accuracy), 2)`%**, achieved by
+**`r paste(paste0(best_forests$Model, " (", best_forests$Trees, " trees)"), collapse = ", ")`**.
+Adding more trees does not guarantee a higher score on this particular test set.
+
+
+6. What is the best model (in term of testing accuracy) among all models (including trees and forests) you have trained?
+
+
+
+```{r compare-all-models}
+all_results <- bind_rows(
+  tree_results %>% select(Model, Accuracy),
+  forest_results %>% select(Model, Accuracy)
+) %>% arrange(desc(Accuracy))
+
+knitr::kable(all_results, digits = 4)
+best_models <- all_results %>% filter(Accuracy == max(Accuracy))
+
+ggplot(all_results, aes(x = reorder(Model, Accuracy), y = Accuracy)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = scales::percent(Accuracy, accuracy = .01)),
+            hjust = -.1, size = 3.5) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent,
+                     limits = c(0, 1), expand = expansion(mult = c(0, .02))) +
+  labs(title = "Testing accuracy of all eight income models",
+       x = "Model", y = "Testing accuracy",
+       caption = "Source: Adult Census Income data; the same 20% test set is used for all models.") +
+  theme_minimal()
+```
+
+The best model on this testing split is
+**`r paste(best_models$Model, collapse = ", ")`**, with accuracy of
+**`r round(100 * max(all_results$Accuracy), 2)`%**.
+For context, always predicting the majority income class on the test set
+would have accuracy of **`r round(100 * tree_cm$overall["AccuracyNull"], 2)`%**.
+
+This assignment asks us to compare models by testing accuracy. Because
+this same test set also helps choose the winning model, its winning score
+may be optimistic as an estimate of future performance. A separate final
+holdout set would be useful for evaluating a model selected this way.
