@@ -5,8 +5,13 @@ Shiny dashboards. Question 11 contains the class presentation.
 
 ## Open in RStudio
 
-Open the QMD inside the folder for that question. Click **Render** for
-Questions 1, 2, and 11. Click **Run Document** for Questions 3 through 10.
+For Questions 1 and 2, open the QMD and click **Render**. For Questions 3
+through 10, open the QMD and click **Run Document**.
+
+For Question 11, open `dashboard_q11/dashboard_q11.Rmd` and click **Knit**.
+It creates `dashboard_q11.html`, with the same slide controls as the midterm.
+The R chunks calculate the summary numbers and build the chart from the
+Question 10 CSV. Keep the `dashboard_q10` and `dashboard_q11` folders together.
 The code is in each QMD with named chunks and comments. Keep each bundled
 CSV and the `www` folder beside its QMD.
 
@@ -76,5 +81,5 @@ actual app URLs, such as `[Dashboard Project - Question 3](PASTE_APP_URL_HERE)`.
 Replace the placeholder before saving it. Submit your GitHub page link to
 Canvas as the assignment directs.
 
-The slide deck is also available as `Fuel_Economy_Presentation.pptx` in
-`dashboard_q11`. The Quarto HTML slides are suitable for a website link.
+The website presentation uses the HTML knitted from `dashboard_q11.Rmd`.
+The README also links to the editable R Markdown source.
