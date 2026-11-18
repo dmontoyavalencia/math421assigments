@@ -1,0 +1,176 @@
+---
+title: "Q9 - COVID Combined Inputs"
+format:
+  dashboard:
+    theme: cosmo
+server: shiny
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| label: setup
+#| context: setup
+library(shiny)
+library(tidyverse)
+library(plotly)
+library(DT)
+library(lubridate)
+
+# Make the logo available to the live Shiny server.
+addResourcePath("www", normalizePath("www"))
+
+theme_set(theme_minimal(base_size = 12))
+
+# Use this message when the selected filters leave no records.
+empty_plot <- function() {
+  plotly_empty() %>%
+    layout(title = list(text = "No records match these inputs.", y = .5),
+           xaxis = list(visible = FALSE), yaxis = list(visible = FALSE))
+}
+
+# Calculate daily changes before removing the December 31 baseline.
+df <- read_csv("new_england_covid.csv") %>%
+  mutate(date = mdy(date)) %>%
+  arrange(state, date) %>%
+  group_by(state) %>%
+  mutate(new_cases = cases - lag(cases), new_deaths = deaths - lag(deaths)) %>%
+  ungroup() %>%
+  filter(date >= as.Date("2021-01-01"))
+```
+
+# Plots
+
+## {.sidebar}
+
+Use four input types together: a dropdown, state checkboxes, a date
+range, and radio buttons. Empty selections display an explanatory message.
+New reports may include negative corrections.
+
+```{r}
+#| label: sidebar-inputs
+selectInput("metric", "Measure", choices = c("Cases" = "cases", "Deaths" = "deaths"))
+checkboxGroupInput("states", "States to include", choices = sort(unique(df$state)),
+                   selected = c("Connecticut", "Massachusetts", "Rhode Island"))
+dateRangeInput("dates", "Reporting date range",
+               start = min(df$date), end = max(df$date),
+               min = min(df$date), max = max(df$date))
+radioButtons("display", "Display totals as",
+             choices = c("Cumulative" = "cumulative", "Newly reported" = "new"),
+             selected = "cumulative")
+
+textOutput("selection_note")
+```
+
+## Row
+
+```{r}
+#| label: plot-one-output
+#| title: "Selected measure over time"
+#| fill: true
+plotlyOutput("p1")
+```
+
+```{r}
+#| label: plot-two-output
+#| title: "Comparison across selected states"
+#| fill: true
+plotlyOutput("p2")
+```
+
+# Data
+
+```{r}
+#| label: table-output
+#| title: "Searchable data for the current selection"
+#| fill: true
+DTOutput("tbl")
+```
+
+# Data Notes
+
+::: {.card title="Data and interpretation"}
+
+The bundled file is a New England subset of `us-states.csv` from the
+earlier coursework. It contains six states and the 2021 reporting period,
+plus December 31, 2020 as a baseline for calculating changes on January 1.
+That baseline is excluded from the displayed records.
+
+Cases and deaths are cumulative reported totals, not population rates.
+Newly reported values are differences between consecutive cumulative
+totals. They can be negative when historical reports are corrected;
+those corrections are retained. Comparing raw totals does not establish
+that one state had a higher individual risk.
+
+The date control uses real reporting dates, parsed with `mdy()`. The table
+shows the same state-day records selected for the plots. Include
+`new_england_covid.csv` and `logo.png` when publishing the QMD.
+
+:::
+
+```{r}
+#| label: server
+#| context: server
+filtered <- reactive({
+  req(input$dates)
+  df %>% filter(state %in% input$states,
+                date >= input$dates[1], date <= input$dates[2])
+})
+
+output$selection_note <- renderText({
+  paste(format(nrow(filtered()), big.mark = ","), "state-day records selected")
+})
+
+measure_column <- reactive({
+  req(input$metric, input$display)
+  if (input$display == "cumulative") input$metric else paste0("new_", input$metric)
+})
+
+measure_label <- reactive({
+  paste(if (input$display == "cumulative") "Cumulative reported" else "Newly reported",
+        input$metric)
+})
+
+# Plot 1: Follow the selected measure over time.
+output$p1 <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(x = date, y = .data[[measure_column()]], color = state)) +
+    geom_line(linewidth = .8) + geom_point(size = .7) +
+    scale_y_continuous(labels = scales::comma) +
+    labs(x = "Reporting date", y = measure_label(), color = "State")
+  ggplotly(p)
+})
+
+# Plot 2: Compare either the last cumulative total or net new reports in the interval.
+output$p2 <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  if (input$display == "cumulative") {
+    totals <- d %>% group_by(state) %>%
+      slice_max(date, n = 1, with_ties = FALSE) %>% ungroup() %>%
+      transmute(state, value = .data[[input$metric]])
+    axis_label <- paste("Cumulative", input$metric, "at last selected date")
+  } else {
+    totals <- d %>% group_by(state) %>%
+      summarise(value = sum(.data[[measure_column()]]), .groups = "drop")
+    axis_label <- paste("Net newly reported", input$metric, "in selected period")
+  }
+  p <- ggplot(totals, aes(x = reorder(state, value), y = value)) +
+    geom_col(fill = "steelblue") + coord_flip() +
+    scale_y_continuous(labels = scales::comma) +
+    labs(x = "State", y = axis_label)
+  ggplotly(p)
+})
+
+output$tbl <- renderDT({
+  filtered() %>% select(date, state, cases, deaths, new_cases, new_deaths) %>%
+    mutate(date = format(date, "%Y-%m-%d")) %>%
+    datatable(rownames = FALSE, options = list(pageLength = 10, paging = TRUE, searching = TRUE,
+                   dom = "lftip", scrollX = TRUE,
+                   language = list(info = "Showing _START_ to _END_ of _TOTAL_ records",
+                                   infoFiltered = "(filtered from _MAX_ total records)")))
+}, server = TRUE)
+```

@@ -1,0 +1,168 @@
+---
+title: "Car Fuel Economy"
+subtitle: "MATH 421 final project"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: none
+    width: 1280
+    height: 720
+    embed-resources: true
+    center: false
+    slide-level: 2
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## The data
+
+The source is FuelEconomy.gov. The prepared file has 12,381 gasoline and diesel configurations.
+
+A row is a vehicle configuration, such as a model with a particular engine and transmission. It is not a vehicle sale.
+
+Non-plug-in hybrids are included. Electric, plug-in, flexible-fuel, and dual-fuel vehicles are excluded.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## Five different inputs
+
+The dropdown selects a manufacturer. Checkboxes select vehicle groups.
+
+The slider selects model years. Radio buttons select gasoline, diesel, or both.
+
+The numeric input sets the maximum engine size. All five inputs filter the same dataset.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## Dashboard features
+
+Overview shows three value boxes, a findings paragraph, and the yearly MPG plot.
+
+Group Comparisons uses tabs for vehicle groups and manufacturer rankings. Engine and Driving has two scatterplots.
+
+Vehicle Data has a searchable table. About the Data explains the source, cleaning, and limitations.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## Results with all filters open
+
+The 12,381 configurations average 23.3 combined MPG.
+
+Highway MPG is 6.7 higher than city MPG on average. Cars have a median combined MPG of 24, compared with 19 for pickups.
+
+These comparisons give every configuration equal weight. They do not represent the mix of vehicles people bought.
+
+```{r}
+#| fig-height: 2.8
+#| fig-width: 10
+#| out-width: "85%"
+library(tidyverse)
+vehicles <- read_csv("../dashboard_q10/fuel_economy.csv", show_col_types = FALSE)
+vehicles %>% group_by(vehicle_group) %>%
+  summarise(median_mpg = median(combined_mpg), .groups = "drop") %>%
+  ggplot(aes(reorder(vehicle_group, -median_mpg), median_mpg)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = median_mpg), vjust = -.3) +
+  scale_y_continuous(limits = c(0, 30)) +
+  labs(x = "Vehicle group", y = "Median combined MPG") +
+  theme_minimal(base_size = 16)
+```
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## How the code is organized
+
+Setup loads the packages and reads the prepared CSV once.
+
+The sidebar creates the five inputs. Output chunks create places for plots, values, and the table.
+
+The server chunk uses reactive() to filter the rows. renderPlotly(), renderText(), renderUI(), and renderDT() fill the outputs.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## How the filtering works
+
+```r
+filtered <- reactive({
+  d <- df %>%
+    filter(vehicle_group %in% input$groups,
+           year >= input$years[1],
+           year <= input$years[2],
+           engine_l <= input$engine_max)
+  # Manufacturer and fuel filters follow.
+})
+```
+
+reactive() recalculates when an input changes. Each output calls filtered() so the figures use the same selection.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## Challenges and fixes
+
+MPG and electric MPGe have different meanings. The project focuses on single-fuel gasoline and diesel configurations.
+
+Empty filters can leave no rows. Each plot checks the row count and shows a message instead of an unexplained blank plot.
+
+The live image folder needs a Shiny resource path. The value boxes use value_box() so their numbers can update.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## A simple live demonstration
+
+Start with all filters open and read the summary values.
+
+Choose Toyota, keep only SUVs, choose Gasoline, and set the maximum engine size to 2.5 liters.
+
+Open the comparison tabs and the Vehicle Data page. Search for RAV4. The sidebar filters the full dashboard; table search filters only the table.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+
+## Advice for this project
+
+Build a small dashboard first, then add one input and one output at a time.
+
+Keep the prepared CSV and image folder with the QMD. Use relative paths so the app can run on the server.
+
+Test empty selections and check the numbers. Publish the Shiny app on Posit Connect Cloud because HTML alone cannot run its inputs.
+
+::: {.notes}
+Source: https://www.fueleconomy.gov/feg/download.shtml
+
+Variable definitions: https://www.fueleconomy.gov/feg/ws/
+:::
+

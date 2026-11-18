@@ -1,0 +1,143 @@
+---
+title: "Q3 - Titanic Grouping"
+format:
+  dashboard:
+    theme: cosmo
+    logo: www/logo.png
+server: shiny
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| label: setup
+#| context: setup
+library(shiny)
+library(tidyverse)
+library(plotly)
+library(DT)
+library(lubridate)
+
+# Make the logo available to the live Shiny server.
+addResourcePath("www", normalizePath("www"))
+
+theme_set(theme_minimal(base_size = 12))
+
+# Use this message when the selected filters leave no records.
+empty_plot <- function() {
+  plotly_empty() %>%
+    layout(title = list(text = "No records match these inputs.", y = .5),
+           xaxis = list(visible = FALSE), yaxis = list(visible = FALSE))
+}
+
+# The course template reads its Titanic data directly from the course website.
+df <- read_csv("https://bryantstats.github.io/math421/data/titanic_final.csv") %>%
+  drop_na(Age, Embarked) %>%
+  mutate(Survived = factor(Survived, levels = c(0, 1), labels = c("No", "Yes")),
+         Pclass = factor(Pclass, levels = 1:3, labels = c("First", "Second", "Third")),
+         Sex = factor(Sex, levels = c("female", "male"), labels = c("Female", "Male")),
+         Embarked = factor(Embarked, levels = c("C", "Q", "S"),
+                           labels = c("Cherbourg", "Queenstown", "Southampton")))
+```
+
+# Plots
+
+## {.sidebar}
+
+Choose how to group the passengers. Both plots update automatically.
+The Data page shows the same included passengers; choosing a grouping does
+not remove passengers.
+
+```{r}
+#| label: sidebar-inputs
+selectInput("group", "Group passengers by",
+            choices = c("Sex" = "Sex", "Passenger class" = "Pclass",
+                        "Embarkation port" = "Embarked"))
+
+textOutput("selection_note")
+```
+
+## Row
+
+```{r}
+#| label: plot-one-output
+#| title: "Age by selected group"
+#| fill: true
+plotlyOutput("p1")
+```
+
+```{r}
+#| label: plot-two-output
+#| title: "Survival by selected group"
+#| fill: true
+plotlyOutput("p2")
+```
+
+# Data
+
+```{r}
+#| label: table-output
+#| title: "Searchable data for the current selection"
+#| fill: true
+DTOutput("tbl")
+```
+
+# Data Notes
+
+::: {.card title="Data and interpretation"}
+
+This is the course's Titanic dataset, restricted to passengers with a
+known age and embarkation port. The grouping dropdown changes how the
+plots compare those passengers. Proportions are calculated within each
+group. These comparisons describe this dataset and do not establish causes.
+
+The artificial practice-date column in the course file is not used here.
+
+**Source:** [Course Titanic data](https://bryantstats.github.io/math421/data/titanic_final.csv).
+
+Run this file with **Run Document**, then publish it on Posit Connect Cloud.
+The HTML produced during rendering requires the live Shiny server.
+
+:::
+
+```{r}
+#| label: server
+#| context: server
+# The dropdown changes the grouping in both plots.
+filtered <- reactive(df)
+
+output$selection_note <- renderText({
+  paste(format(nrow(filtered()), big.mark = ","), "passengers included")
+})
+
+# Plot 1: Compare recorded age distributions across the chosen groups.
+output$p1 <- renderPlotly({
+  req(input$group)
+  p <- ggplot(filtered(), aes(x = Age, color = .data[[input$group]])) +
+    geom_density(linewidth = 1) +
+    labs(x = "Age (years)", y = "Density", color = input$group)
+  ggplotly(p)
+})
+
+# Plot 2: Show the survival proportions within each chosen group.
+output$p2 <- renderPlotly({
+  req(input$group)
+  p <- ggplot(filtered(), aes(x = .data[[input$group]], fill = Survived)) +
+    geom_bar(position = "fill") +
+    scale_fill_manual(values = c("No" = "#E07A5F", "Yes" = "#3D7EA6")) +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = input$group, y = "Proportion", fill = "Survived")
+  ggplotly(p)
+})
+
+output$tbl <- renderDT({
+  filtered() %>%
+    select(Name, Sex, Age, Pclass, Embarked, Survived) %>%
+    datatable(rownames = FALSE, options = list(pageLength = 10, paging = TRUE, searching = TRUE,
+                   dom = "lftip", scrollX = TRUE,
+                   language = list(info = "Showing _START_ to _END_ of _TOTAL_ records",
+                                   infoFiltered = "(filtered from _MAX_ total records)")))
+}, server = TRUE)
+```

@@ -1,0 +1,149 @@
+---
+title: "Q7 - Census Radio Buttons"
+format:
+  dashboard:
+    theme: cosmo
+server: shiny
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| label: setup
+#| context: setup
+library(shiny)
+library(tidyverse)
+library(plotly)
+library(DT)
+library(lubridate)
+
+# Make the logo available to the live Shiny server.
+addResourcePath("www", normalizePath("www"))
+
+theme_set(theme_minimal(base_size = 12))
+
+# Use this message when the selected filters leave no records.
+empty_plot <- function() {
+  plotly_empty() %>%
+    layout(title = list(text = "No records match these inputs.", y = .5),
+           xaxis = list(visible = FALSE), yaxis = list(visible = FALSE))
+}
+
+# This file contains the complete records from the course Adult Census data.
+df <- read_csv("adult_census_clean.csv") %>%
+  mutate(sex = factor(sex), education = factor(education), workclass = factor(workclass),
+         income = factor(income, levels = c("<=50K", ">50K")))
+```
+
+# Plots
+
+## {.sidebar}
+
+Choose an income group. Compare its age distribution and recorded weekly work hours.
+
+```{r}
+#| label: sidebar-inputs
+radioButtons("income_group", "Income group",
+             choices = c("All income groups" = "All", "50K or less" = "<=50K",
+                         "More than 50K" = ">50K"), selected = "All")
+
+textOutput("selection_note")
+```
+
+## Row
+
+```{r}
+#| label: plot-one-output
+#| title: "Age distribution by sex"
+#| fill: true
+plotlyOutput("p1")
+```
+
+```{r}
+#| label: plot-two-output
+#| title: "Weekly work hours by income"
+#| fill: true
+plotlyOutput("p2")
+```
+
+# Data
+
+```{r}
+#| label: table-output
+#| title: "Searchable data for the current selection"
+#| fill: true
+DTOutput("tbl")
+```
+
+# Data Notes
+
+::: {.card title="Data and interpretation"}
+
+These dashboards use the same Adult Census Income source file as the
+earlier assignments, rather than Titanic. The original file has 32,561
+records; 2,399 records with missing entries (including question marks) were
+removed, leaving 30,162 complete records. Only the six columns needed here
+are kept in the bundled CSV.
+
+The first plot counts records in five-year age bins, separated by sex. The
+second compares weekly work-hour distributions by income group. The line
+inside each box is the median. Differences are descriptive; the counts
+are not population-adjusted rates or evidence of causal effects.
+
+**Source:** [Course Adult Census dataset](https://bryantstats.github.io/math421/data/adult_census.csv).
+
+The inputs on Plots also filter the searchable table on Data. Include
+`adult_census_clean.csv` and `logo.png` when publishing the QMD.
+
+:::
+
+```{r}
+#| label: server
+#| context: server
+filtered <- reactive({
+  req(input$income_group)
+  if (input$income_group == "All") {
+    df
+  } else {
+    df %>% filter(income == input$income_group)
+  }
+})
+
+output$selection_note <- renderText({
+  paste(format(nrow(filtered()), big.mark = ","), "records selected")
+})
+
+# Plot 1: Show age counts for the selected records.
+output$p1 <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(x = age, fill = sex)) +
+    geom_histogram(binwidth = 5, position = "identity", alpha = .6) +
+    scale_fill_manual(values = c("Female" = "#E07A5F", "Male" = "#3D7EA6")) +
+    labs(x = "Age (years)", y = "Records", fill = "Sex")
+  ggplotly(p)
+})
+
+# Plot 2: Compare the median and spread of recorded weekly work hours.
+output$p2 <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(x = income, y = hours.per.week)) +
+    geom_boxplot(fill = "steelblue", outlier.alpha = .3) +
+    labs(x = "Income group", y = "Work hours per week")
+  ggplotly(p)
+})
+
+output$tbl <- renderDT({
+  filtered() %>%
+    select(age, sex, education, workclass, hours.per.week, income) %>%
+    datatable(rownames = FALSE,
+              colnames = c("Age", "Sex", "Education", "Work class", "Hours/week", "Income"),
+              options = list(pageLength = 10, paging = TRUE, searching = TRUE,
+                   dom = "lftip", scrollX = TRUE,
+                   language = list(info = "Showing _START_ to _END_ of _TOTAL_ records",
+                                   infoFiltered = "(filtered from _MAX_ total records)")))
+}, server = TRUE)
+```

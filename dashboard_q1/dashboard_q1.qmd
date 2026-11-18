@@ -1,0 +1,53 @@
+---
+title: "Math 421 - Dashboard Layout Practice"
+format: dashboard
+---
+
+# Layout Practice
+
+## {.sidebar}
+
+This dashboard practices two pages, a sidebar, and four empty cards.
+
+## Column {width=50%}
+
+### Main Card
+
+```{r}
+#| title: Main Card
+#| fill: true
+#| results: asis
+# A blank placeholder keeps the empty card visible in this Quarto version.
+cat("&nbsp;")
+```
+
+## Column {width=50%}
+
+### Upper Card
+
+```{r}
+#| title: Upper Card
+#| fill: true
+#| results: asis
+cat("&nbsp;")
+```
+
+### Lower Card
+
+```{r}
+#| title: Lower Card
+#| fill: true
+#| results: asis
+cat("&nbsp;")
+```
+
+# Second Page
+
+### Extra Card
+
+```{r}
+#| title: Extra Card
+#| fill: true
+#| results: asis
+cat("&nbsp;")
+```

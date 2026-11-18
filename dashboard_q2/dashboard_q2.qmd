@@ -1,0 +1,205 @@
+---
+title: "Titanic - Passenger Survival"
+format:
+  dashboard:
+    theme: cosmo
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(plotly)
+library(DT)
+
+# The course data are saved in the same folder as this dashboard.
+all_passengers <- read_csv("titanic_final.csv")
+
+# Follow the template: keep passengers with a known age and port.
+df <- all_passengers %>%
+  drop_na(Age, Embarked) %>%
+  mutate(
+    Survived = factor(Survived, levels = c(0, 1), labels = c("No", "Yes")),
+    Pclass = factor(Pclass, levels = c(1, 2, 3),
+                    labels = c("First", "Second", "Third")),
+    Sex = factor(Sex, levels = c("female", "male"),
+                 labels = c("Female", "Male")),
+    Embarked = factor(Embarked, levels = c("C", "Q", "S"),
+                      labels = c("Cherbourg", "Queenstown", "Southampton"))
+  )
+
+class_summary <- df %>%
+  group_by(Pclass) %>%
+  summarise(passengers = n(), survival_rate = mean(Survived == "Yes"),
+            .groups = "drop")
+
+sex_summary <- df %>%
+  group_by(Sex) %>%
+  summarise(passengers = n(), survival_rate = mean(Survived == "Yes"),
+            .groups = "drop")
+
+theme_set(theme_minimal(base_size = 12))
+survival_colors <- c("No" = "#E07A5F", "Yes" = "#3D7EA6")
+```
+
+# Overview
+
+## {.sidebar}
+
+This dashboard explores passenger characteristics and survival in the
+course Titanic dataset.
+
+**Included:** `r nrow(df)` passengers with a known age and embarkation port.
+
+Use the pages across the top to explore the plots, search passenger
+records, and read the findings. Hover over a plot to see details.
+
+**Source:** [Course Titanic data](https://bryantstats.github.io/math421/data/titanic_final.csv)
+
+## Column
+
+### Row {height=25%}
+
+```{r}
+#| label: passenger-value-box
+#| content: valuebox
+#| title: "Passengers included"
+list(icon = "people", color = "primary", value = nrow(df))
+```
+
+```{r}
+#| label: survival-value-box
+#| content: valuebox
+#| title: "Survival rate"
+list(icon = "life-preserver", color = "success",
+     value = scales::percent(mean(df$Survived == "Yes"), accuracy = .1))
+```
+
+```{r}
+#| label: age-value-box
+#| content: valuebox
+#| title: "Median age"
+list(icon = "person", color = "info", value = median(df$Age))
+```
+
+### Row {height=75%}
+
+```{r}
+#| label: survival-by-class
+#| title: "Survival by passenger class"
+# Plot 1: Proportions make classes with different numbers of passengers comparable.
+plot_class <- ggplot(df, aes(x = Pclass, fill = Survived)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = survival_colors) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Passenger class", y = "Proportion", fill = "Survived") +
+  theme(legend.position = "right")
+
+ggplotly(plot_class)
+```
+
+```{r}
+#| label: survival-by-sex
+#| title: "Survival by sex"
+# Plot 2: Compare the proportions who survived within each sex.
+plot_sex <- ggplot(df, aes(x = Sex, fill = Survived)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = survival_colors) +
+  scale_y_continuous(labels = scales::percent) +
+  labs(x = "Sex", y = "Proportion", fill = "Survived") +
+  theme(legend.position = "right")
+
+ggplotly(plot_sex)
+```
+
+# Distributions
+
+## Column {.tabset}
+
+```{r}
+#| label: age-distribution
+#| title: "Age distribution"
+# Plot 3: Density curves compare the shapes of the age distributions.
+plot_age <- ggplot(df, aes(x = Age, color = Survived)) +
+  geom_density(linewidth = 1) +
+  scale_color_manual(values = survival_colors) +
+  labs(x = "Age (years)", y = "Density", color = "Survived") +
+  theme(legend.position = "right")
+
+ggplotly(plot_age)
+```
+
+```{r}
+#| label: fare-by-class
+#| title: "Fare by class"
+# Plot 4: Boxplots compare the median and spread of recorded fares.
+plot_fare <- ggplot(df, aes(x = Pclass, y = Fare)) +
+  geom_boxplot(fill = "steelblue", outlier.alpha = .4) +
+  labs(x = "Passenger class", y = "Recorded fare")
+
+ggplotly(plot_fare)
+```
+
+# Passenger Data
+
+```{r}
+#| label: searchable-passenger-table
+#| title: "Passenger records - use Search to find a name or category"
+passenger_table <- df %>%
+  select(Name, Sex, Age, Pclass, Embarked, Fare, Survived) %>%
+  rename(Class = Pclass, Port = Embarked)
+
+datatable(
+  passenger_table,
+  rownames = FALSE,
+  options = list(
+    pageLength = 10,
+    lengthMenu = c(10, 25, 50),
+    paging = TRUE,
+    searching = TRUE,
+    dom = "lftip",
+    scrollX = TRUE,
+    language = list(
+      info = "Showing _START_ to _END_ of _TOTAL_ passengers",
+      infoFiltered = "(filtered from _MAX_ total passengers)"
+    )
+  )
+) %>%
+  formatRound("Fare", digits = 2)
+```
+
+# About
+
+::: {.card title="Findings and data notes"}
+
+![](logo.png){width=60 fig-alt="Titanic ship icon from the course dashboard template"}
+
+**What the dashboard shows:** Among the included passengers, the survival
+rate was `r scales::percent(sex_summary$survival_rate[sex_summary$Sex == "Female"], accuracy = .1)`
+for females and
+`r scales::percent(sex_summary$survival_rate[sex_summary$Sex == "Male"], accuracy = .1)`
+for males. First-class passengers had a survival rate of
+`r scales::percent(class_summary$survival_rate[class_summary$Pclass == "First"], accuracy = .1)`,
+compared with
+`r scales::percent(class_summary$survival_rate[class_summary$Pclass == "Third"], accuracy = .1)`
+in third class. These are descriptive comparisons within this dataset.
+
+**Cleaning:** The source file contains `r nrow(all_passengers)` passengers.
+Following the professor's template, `r nrow(all_passengers) - nrow(df)`
+records with missing age or embarkation port were removed. All plots,
+value boxes, and table rows use the same `r nrow(df)` remaining passengers.
+These results therefore describe this subset, rather than every passenger
+aboard the Titanic. Fares are displayed as recorded in the course file.
+
+**How to use it:** Overview contains the summary numbers and survival
+charts. Distributions contains two plot tabs. Passenger Data provides
+searching, sorting, and pagination. Everything runs in the browser after
+rendering; this question uses a static Quarto dashboard.
+
+**Source:** [Professor's Titanic dataset](https://bryantstats.github.io/math421/data/titanic_final.csv)
+
+:::

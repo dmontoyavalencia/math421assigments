@@ -1,0 +1,335 @@
+---
+title: "Car Fuel Economy"
+format:
+  dashboard:
+    theme: cosmo
+    css: www/dashboard.css
+    nav-buttons:
+      - icon: github
+        href: https://github.com/dmontoyavalencia
+        aria-label: "My GitHub profile"
+      - icon: code-slash
+        href: https://raw.githubusercontent.com/dmontoyavalencia/math421assigments/main/dashboard_q10/dashboard_q10.qmd
+        aria-label: "Dashboard source code"
+server: shiny
+execute:
+  echo: false
+  message: false
+  warning: false
+---
+
+```{r}
+#| label: setup
+#| context: setup
+library(shiny)
+library(tidyverse)
+library(plotly)
+library(DT)
+
+# Read the small prepared file once when the app starts.
+# prepare_data.R shows how it was selected from the official source.
+df <- read_csv("fuel_economy.csv", show_col_types = FALSE)
+theme_set(theme_minimal(base_size = 12))
+addResourcePath("www", normalizePath("www"))
+
+# Reuse the same empty-selection message in every plot.
+empty_plot <- function(message = "No vehicles match these filters.") {
+  plotly_empty() %>%
+    layout(title = list(text = message, y = .5),
+           xaxis = list(visible = FALSE), yaxis = list(visible = FALSE))
+}
+```
+
+# {.sidebar width="280px"}
+
+Compare EPA vehicle configurations from **2015–2025**.
+All five controls filter every plot, value box, and data row.
+
+```{r}
+#| label: five-input-types
+# 1. Dropdown: focus on one manufacturer or keep all manufacturers.
+selectInput("make", "Manufacturer", choices = c("All", sort(unique(df$make))))
+
+# 2. Checkboxes: choose one or several broad vehicle groups.
+checkboxGroupInput("groups", "Vehicle groups",
+                   choices = c("Cars", "SUVs", "Pickups", "Vans", "Other"),
+                   selected = c("Cars", "SUVs", "Pickups", "Vans", "Other"),
+                   inline = TRUE)
+
+# 3. Slider: choose the model-year range.
+sliderInput("years", "Model years", min = 2015, max = 2025,
+            value = c(2015, 2025), step = 1, sep = "")
+
+# 4. Radio buttons: choose a fuel group.
+radioButtons("fuel", "Fuel", choices = c("Both", "Gasoline", "Diesel"),
+             selected = "Both", inline = TRUE)
+
+# 5. Numeric input: set the maximum engine displacement.
+numericInput("engine_max", "Maximum engine size (liters)",
+             value = max(df$engine_l), min = .5,
+             max = max(df$engine_l), step = .1)
+
+textOutput("selection_note")
+```
+
+# Overview
+
+## Row {height=20%}
+
+```{r}
+#| label: record-value-box
+bslib::value_box(title = "Vehicle configurations", value = textOutput("n_value"),
+                 showcase = icon("car"), theme = "primary")
+```
+
+```{r}
+#| label: mpg-value-box
+bslib::value_box(title = "Mean combined MPG", value = textOutput("mpg_value"),
+                 showcase = icon("gauge-high"), theme = "success")
+```
+
+```{r}
+#| label: gap-value-box
+bslib::value_box(title = "Highway - city MPG", value = textOutput("gap_value"),
+                 showcase = icon("road"), theme = "info")
+```
+
+## Row {height=25%}
+
+```{r}
+#| label: findings-output
+#| title: "What the selected data show"
+uiOutput("findings")
+```
+
+## Row {height=55%}
+
+```{r}
+#| label: trend-output
+#| title: "Plot 1 - Mean combined MPG by model year"
+#| fill: true
+plotlyOutput("trend")
+```
+
+# Group Comparisons
+
+## Column {.tabset}
+
+```{r}
+#| label: class-output
+#| title: "Plot 2 - MPG by vehicle group"
+#| fill: true
+plotlyOutput("by_class")
+```
+
+```{r}
+#| label: manufacturer-output
+#| title: "Plot 3 - Manufacturers with the highest mean MPG"
+#| fill: true
+plotlyOutput("by_make")
+```
+
+# Engine and Driving
+
+## Row
+
+```{r}
+#| label: engine-output
+#| title: "Plot 4 - Engine size and combined MPG"
+#| fill: true
+plotlyOutput("engine")
+```
+
+```{r}
+#| label: driving-output
+#| title: "Plot 5 - City and highway MPG"
+#| fill: true
+plotlyOutput("driving")
+```
+
+# Vehicle Data
+
+```{r}
+#| label: table-output
+#| title: "Search the vehicle configurations selected by the sidebar"
+#| fill: true
+DTOutput("vehicles_table")
+```
+
+# About the Data {scrolling=true}
+
+## Source and scope
+
+::: {.card title="FuelEconomy.gov data"}
+
+![FuelEconomy.gov - the official government source for fuel economy information](www/fuel_economy_source.png){width=320}
+
+**Source and image:** [FuelEconomy.gov](https://www.fueleconomy.gov/feg/download.shtml),
+administered by Oak Ridge National Laboratory for DOE and EPA.
+[Variable definitions](https://www.fueleconomy.gov/feg/ws/).
+Data downloaded November 18, 2026. This is a student project using their data.
+
+The prepared file contains **12,381 vehicle configurations** from model years
+2015–2025. Each row is an EPA vehicle configuration, identified by its record
+ID. Rows are not vehicles sold or individual drivers. Different engines,
+transmissions, and drive systems can give the same model multiple rows.
+
+The project includes single-fuel gasoline and diesel configurations with
+positive city MPG, highway MPG, combined MPG, and engine displacement.
+Gasoline includes regular, premium, and midgrade fuel. Non-plug-in hybrids
+are included. Electric, plug-in hybrid, flexible-fuel, and other dual-fuel
+configurations are excluded. The preparation script is `prepare_data.R`.
+
+:::
+
+## How to read the results
+
+::: {.card title="Definitions and limitations"}
+
+**MPG** means miles per U.S. gallon. Higher MPG means the vehicle travels
+farther on a gallon of fuel. Combined MPG uses the source's `comb08` value;
+it is not calculated as the simple average of city and highway MPG.
+
+The broad groups are Cars (including station wagons and two-seaters), SUVs,
+Pickups, Vans (including minivans), and Other. The original EPA class stays
+in the searchable table.
+
+Every mean gives each configuration equal weight. These are **not
+sales-weighted averages**. Differences by manufacturer, engine size, fuel,
+or year can reflect a different mix of configurations and hybrid technology.
+The comparisons describe this dataset and do not show causal effects.
+
+Plot 3 ranks at most ten manufacturers that have at least five selected
+configurations. Hover over a bar to see its count. If fewer than five
+configurations remain for every manufacturer, it explains why no ranking
+is shown. The table's own search further narrows the table display only;
+use the sidebar to filter the entire dashboard.
+
+:::
+
+```{r}
+#| label: server
+#| context: server
+
+# One reactive dataset keeps all dashboard outputs on the same selection.
+filtered <- reactive({
+  req(input$make, input$years, input$fuel, input$engine_max)
+  d <- df %>%
+    filter(vehicle_group %in% input$groups,
+           year >= input$years[1], year <= input$years[2],
+           engine_l <= input$engine_max)
+  if (input$make != "All") d <- d %>% filter(make == input$make)
+  if (input$fuel != "Both") d <- d %>% filter(fuel == input$fuel)
+  d
+})
+
+# Three value boxes use exactly the same rows as the plots.
+output$selection_note <- renderText({
+  paste(format(nrow(filtered()), big.mark = ","), "configurations selected")
+})
+output$n_value <- renderText(format(nrow(filtered()), big.mark = ","))
+output$mpg_value <- renderText({
+  if (nrow(filtered()) == 0) "-" else sprintf("%.1f", mean(filtered()$combined_mpg))
+})
+output$gap_value <- renderText({
+  d <- filtered()
+  if (nrow(d) == 0) "-" else sprintf("%.1f", mean(d$highway_mpg - d$city_mpg))
+})
+
+# The findings paragraph updates instead of keeping stale numbers after a filter.
+output$findings <- renderUI({
+  d <- filtered()
+  if (nrow(d) == 0) return(tags$p("No configurations match these filters. Select a vehicle group or widen the filters."))
+  class_summary <- d %>% group_by(vehicle_group) %>%
+    summarise(median_mpg = median(combined_mpg), .groups = "drop") %>%
+    arrange(desc(median_mpg), vehicle_group)
+  highest <- class_summary[1, ]
+  tags$p(sprintf(
+    "These %s configurations average %.1f combined MPG. The mean highway-minus-city difference is %.1f MPG. Among the selected vehicle groups, %s has the highest median combined MPG at %.1f. These results compare configurations equally; they are not sales-weighted averages, and vehicle mix can affect the comparisons.",
+    format(nrow(d), big.mark = ","), mean(d$combined_mpg),
+    mean(d$highway_mpg - d$city_mpg), highest$vehicle_group, highest$median_mpg))
+})
+
+# Plot 1: Summarise each model year, then draw its mean combined MPG.
+output$trend <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  yearly <- d %>% group_by(year, fuel) %>%
+    summarise(mean_mpg = mean(combined_mpg), configurations = n(), .groups = "drop")
+  p <- ggplot(yearly, aes(year, mean_mpg, color = fuel, group = fuel,
+                          text = paste("Year:", year, "<br>Fuel:", fuel,
+                                       "<br>Configurations:", configurations,
+                                       "<br>Mean combined MPG:", round(mean_mpg, 1)))) +
+    geom_line(linewidth = .8) + geom_point(size = 2) +
+    scale_x_continuous(breaks = seq(2015, 2025, 2)) +
+    labs(x = "Model year", y = "Mean combined MPG", color = "Fuel")
+  ggplotly(p, tooltip = "text")
+})
+
+# Plot 2: Compare the median and spread, rather than only group averages.
+output$by_class <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(reorder(vehicle_group, combined_mpg, FUN = median), combined_mpg)) +
+    geom_boxplot(fill = "#3D7EA6", outlier.alpha = .3) + coord_flip() +
+    labs(x = "Vehicle group", y = "Combined MPG")
+  ggplotly(p)
+})
+
+# Plot 3: Compare manufacturer means, keeping groups with at least five rows.
+output$by_make <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  manufacturers <- d %>% group_by(make) %>%
+    summarise(mean_mpg = mean(combined_mpg), configurations = n(), .groups = "drop") %>%
+    filter(configurations >= 5) %>% arrange(desc(mean_mpg), make) %>% slice_head(n = 10)
+  if (nrow(manufacturers) == 0) return(empty_plot("Ranking needs at least 5 configurations per manufacturer."))
+  p <- ggplot(manufacturers, aes(reorder(make, mean_mpg), mean_mpg,
+           text = paste(make, "<br>Mean combined MPG:", round(mean_mpg, 1),
+                        "<br>Configurations:", configurations))) +
+    geom_col(fill = "#3D7EA6") + coord_flip() +
+    labs(x = "Manufacturer (at least 5 selected configurations)", y = "Mean combined MPG")
+  ggplotly(p, tooltip = "text")
+})
+
+# Plot 4: Check the association between engine displacement and MPG.
+output$engine <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(engine_l, combined_mpg, color = fuel,
+                     text = paste(year, make, model, "<br>Engine:", engine_l,
+                                  "L<br>Combined MPG:", combined_mpg,
+                                  "<br>Technology:", technology))) +
+    geom_point(alpha = .35, size = 1.2) +
+    labs(x = "Engine size (liters)", y = "Combined MPG", color = "Fuel")
+  ggplotly(p, tooltip = "text")
+})
+
+# Plot 5: Above the dashed line means higher highway MPG than city MPG.
+output$driving <- renderPlotly({
+  d <- filtered()
+  if (nrow(d) == 0) return(empty_plot())
+  p <- ggplot(d, aes(city_mpg, highway_mpg, color = fuel,
+                     text = paste(year, make, model, "<br>City MPG:", city_mpg,
+                                  "<br>Highway MPG:", highway_mpg))) +
+    geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray45") +
+    geom_point(alpha = .35, size = 1.2) +
+    labs(x = "City MPG", y = "Highway MPG", color = "Fuel")
+  ggplotly(p, tooltip = "text")
+})
+
+# The table shares the sidebar filters and also has its own search box.
+output$vehicles_table <- renderDT({
+  filtered() %>% select(year, make, model, vehicle_group, fuel, technology,
+                        engine_l, city_mpg, highway_mpg, combined_mpg,
+                        epa_class, transmission, drive, id) %>%
+    datatable(rownames = FALSE,
+      colnames = c("Year", "Manufacturer", "Model", "Group", "Fuel", "Technology",
+                   "Engine (L)", "City MPG", "Highway MPG", "Combined MPG",
+                   "EPA class", "Transmission", "Drive", "Record ID"),
+      options = list(pageLength = 10, searching = TRUE, paging = TRUE,
+                     dom = "lftip", scrollX = TRUE,
+                     language = list(info = "Showing _START_ to _END_ of _TOTAL_ configurations",
+                       infoFiltered = "(filtered from _MAX_ selected configurations)")))
+}, server = TRUE)
+```

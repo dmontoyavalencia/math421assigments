@@ -1,0 +1,5 @@
+/* Give the slider's end labels room inside the narrow sidebar. */
+.sidebar .irs {
+  width: calc(100% - 28px);
+  margin-left: 14px;
+}
