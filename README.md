@@ -32,6 +32,8 @@
 
 [Assignment 13](assignment13_optional.html)
 
+[Assignment 14](assignment14_optional.html)
+
 ### Dashboard Final Project
 
 [Question 1 - Empty Layout](dashboard_q1/dashboard_q1.html)

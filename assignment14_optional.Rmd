@@ -1,0 +1,362 @@
+
+---
+output: 
+  html_document:
+  pdf_document: default
+  word_document: default
+title: "Assignment 14: Writing a function - Loop"
+---
+
+***How to do it?***: 
+
+- Open the Rmarkdown file of this assignment ([link](assignment14_optional.Rmd)) in Rstudio. 
+
+- Right under each **question**, insert  a code chunk (you can use the hotkey `Ctrl + Alt + I` to add a code chunk) and code the solution for the question. 
+
+- `Knit` the rmarkdown file (hotkey: `Ctrl + Alt + K`) to export an html.  
+
+-  Publish the html file to your Githiub Page. 
+
+***Submission***: Submit the link on Github of the assignment to Canvas
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE,
+                     fig.width = 8, fig.height = 4.5)
+library(ggplot2)
+```
+
+
+-------
+
+## Question 1
+
+1. Write the following function. Give examples to test your function.
+
+- Input: a data frame
+
+- Output: a data frame with all the missing of numeric variables replaced by the associated means.
+
+Hint: [Similar function](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#28)
+
+### Solution
+
+The loop checks each column. For a numeric column, it replaces `NA` with
+the mean of the observed values. Non-numeric columns stay unchanged.
+
+```{r numeric-mean-function}
+numeric_impute <- function(d) {
+  for (i in seq_along(d)) {
+    if (is.numeric(d[[i]])) {
+      # A completely missing column has no observed mean.
+      if (any(!is.na(d[[i]]))) {
+        column_mean <- mean(d[[i]], na.rm = TRUE)
+        d[[i]][is.na(d[[i]])] <- column_mean
+      }
+    }
+  }
+  return(d)
+}
+```
+
+```{r test-numeric-mean}
+missing_data <- data.frame(
+  age = c(20, NA, 30, 40, NA, 50),
+  spending = c(100, 120, NA, 160, 180, NA),
+  group = c("A", NA, "A", "B", "A", NA),
+  region = factor(c("North", "North", NA, "South", "North", NA)),
+  member = c(TRUE, NA, TRUE, FALSE, TRUE, NA)
+)
+
+missing_data
+numeric_result <- numeric_impute(missing_data)
+numeric_result
+colSums(is.na(numeric_result))
+
+# The observed age mean is 35, and the observed spending mean is 140.
+stopifnot(all(numeric_result$age[c(2, 5)] == 35),
+          all(numeric_result$spending[c(3, 6)] == 140),
+          identical(numeric_result$group, missing_data$group))
+```
+
+The numeric columns now have no missing values. The categorical and
+logical columns still have their original missing values, as intended.
+If a column is entirely missing, its mean cannot be calculated, so those
+values remain missing.
+
+-------
+
+## Question 2
+
+2. Write the following function. Give examples to test your function.
+
+- Input: a data frame
+
+- Output: a data frame with all the missing of variables replaced by the associated means (for numeric variables) or modes (for non-numeric variables).
+
+Hint: Use If-statement to combine the function in Problem 1 and the function in [this example](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#28)
+
+### Solution
+
+I use a helper function to find the most frequent observed value, which
+is the statistical mode. Then an `if` statement chooses mean imputation
+for numeric columns and mode imputation for the other columns.
+
+```{r mean-and-mode-functions}
+mode_impute <- function(x) {
+  observed <- x[!is.na(x)]
+  if (length(observed) == 0) return(x)
+
+  counts <- table(observed)
+  mode_name <- names(counts)[which.max(counts)]
+
+  # Take the value from the original vector to preserve its type.
+  mode_value <- observed[match(mode_name, as.character(observed))]
+  x[is.na(x)] <- mode_value
+  return(x)
+}
+
+all_impute <- function(d) {
+  for (i in seq_along(d)) {
+    if (is.numeric(d[[i]])) {
+      if (any(!is.na(d[[i]]))) {
+        d[[i]][is.na(d[[i]])] <- mean(d[[i]], na.rm = TRUE)
+      }
+    } else {
+      d[[i]] <- mode_impute(d[[i]])
+    }
+  }
+  return(d)
+}
+```
+
+```{r test-mean-and-mode}
+complete_result <- all_impute(missing_data)
+complete_result
+colSums(is.na(complete_result))
+
+stopifnot(!anyNA(complete_result),
+          all(complete_result$group[c(2, 6)] == "A"),
+          all(as.character(complete_result$region[c(3, 6)]) == "North"),
+          all(complete_result$member[c(2, 6)]),
+          is.factor(complete_result$region),
+          is.logical(complete_result$member))
+```
+
+The modes are `A`, `North`, and `TRUE`. The factor and logical columns
+keep their types. If categories tie, the first tied category in `table()`
+order is used. An entirely missing column stays missing because it has
+no observed mean or mode. These functions return a new data frame; the
+original `missing_data` still contains its missing values.
+
+```{r entirely-missing-example}
+all_missing <- data.frame(
+  number = c(NA_real_, NA_real_),
+  category = c(NA_character_, NA_character_)
+)
+all_impute(all_missing)
+stopifnot(identical(all_impute(all_missing), all_missing))
+```
+
+-------
+
+## Question 3
+
+3. Write the following function. Give examples to test your function.
+
+- Input: a data frame
+
+- Output: Bar plots of all non-numeric variables
+
+Hint: [Similar function](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#33)
+
+### Solution
+
+This function loops through the columns and prints a bar plot whenever
+the column is non-numeric. `print()` displays each plot inside the loop.
+It also returns the plots invisibly in a list so I can check their number.
+
+```{r categorical-bar-function}
+bar_plot <- function(d) {
+  plots <- list()
+  for (i in seq_along(d)) {
+    if (!is.numeric(d[[i]])) {
+      p <- ggplot(d, aes(x = .data[[names(d)[i]]])) +
+        geom_bar(fill = "steelblue") +
+        labs(title = paste("Counts of", names(d)[i]),
+             x = names(d)[i], y = "Count") +
+        theme_minimal()
+      print(p)
+      plots[[names(d)[i]]] <- p
+    }
+  }
+  return(invisible(plots))
+}
+```
+
+The following small, made-up dataset is used to test the plotting
+functions. It has three numeric columns and two categorical columns.
+
+```{r example-plot-data}
+plot_data <- data.frame(
+  age = c(20, 22, 25, 27, 30, 32, 35, 37, 40, 42, 45, 47),
+  spending = c(120, 100, 150, 180, 160, 210, 230, 200, 240, 260, 250, 290),
+  score = c(60, 65, 64, 70, 72, 75, 74, 80, 81, 85, 84, 88),
+  group = factor(rep(c("A", "B"), 6)),
+  region = rep(c("North", "South", "West"), each = 4)
+)
+plot_data
+```
+
+```{r test-categorical-bars}
+single_bars <- bar_plot(plot_data)
+length(single_bars)
+stopifnot(length(single_bars) == 2)
+```
+
+There are two plots: one for `group` and one for `region`. Each bar
+counts the rows in that category.
+
+-------
+
+## Question 4
+
+4. Write the following function. Give examples to test your function.
+
+- Input: a data frame
+
+- Output: all possible the bar plots of a non-numeric variable filled by a non-numeric variable.
+
+Hint: [Similar function](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#40)
+
+### Solution
+
+The two loops consider every pair of columns. The `if` statement keeps
+two distinct non-numeric columns. Swapping the x and fill variables
+gives a different layout, so this version shows both directions.
+
+```{r grouped-bar-function}
+bar_plot2 <- function(d) {
+  plots <- list()
+  for (i in seq_along(d)) {
+    for (j in seq_along(d)) {
+      if (i != j && !is.numeric(d[[i]]) && !is.numeric(d[[j]])) {
+        p <- ggplot(d, aes(x = .data[[names(d)[i]]],
+                           fill = .data[[names(d)[j]]])) +
+          geom_bar(position = "dodge") +
+          labs(title = paste(names(d)[i], "filled by", names(d)[j]),
+               x = names(d)[i], y = "Count", fill = names(d)[j]) +
+          theme_minimal()
+        print(p)
+        plot_name <- paste(names(d)[i], names(d)[j], sep = "_by_")
+        plots[[plot_name]] <- p
+      }
+    }
+  }
+  return(invisible(plots))
+}
+```
+
+```{r test-grouped-bars}
+grouped_bars <- bar_plot2(plot_data)
+names(grouped_bars)
+length(grouped_bars)
+stopifnot(length(grouped_bars) == 2)
+```
+
+The plots show `group` filled by `region` and `region` filled by `group`.
+With two categorical columns there are `2 * (2 - 1) = 2` such plots.
+
+-------
+
+## Question 5
+
+5. Write the following function. Give examples to test your function.
+
+- Input: a data frame
+
+- Output: 
+
+  - all possible the bar plots of a non-numeric variable filled by a non-numeric variable.
+  
+  - all possible the density plots of a numeric variable colored by a non-numeric variable
+  
+  - all possible the scatter plots.
+
+Hint: Combine [this function](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#37), [this function](https://bryantstats.github.io/math421/gganimate/18_writing_functions.html#40), and the function in Question 4. One way to combine is creating a new function, `quick_plot`, and call these three functions within `quick_plot`.
+
+### Solution
+
+I combine `bar_plot2()` with a density function and a scatterplot
+function. The density function checks every numeric/categorical
+combination, regardless of column order. The scatterplot function uses
+`i < j` so each pair of numeric columns is plotted once.
+
+```{r density-and-scatter-functions}
+density_plot2 <- function(d) {
+  plots <- list()
+  for (i in seq_along(d)) {
+    for (j in seq_along(d)) {
+      if (is.numeric(d[[i]]) && !is.numeric(d[[j]])) {
+        p <- ggplot(d, aes(x = .data[[names(d)[i]]],
+                           color = .data[[names(d)[j]]])) +
+          geom_density(na.rm = TRUE) +
+          labs(title = paste(names(d)[i], "by", names(d)[j]),
+               x = names(d)[i], y = "Density", color = names(d)[j]) +
+          theme_minimal()
+        print(p)
+        plot_name <- paste(names(d)[i], names(d)[j], sep = "_by_")
+        plots[[plot_name]] <- p
+      }
+    }
+  }
+  return(invisible(plots))
+}
+
+scatter_plot <- function(d) {
+  plots <- list()
+  for (i in seq_along(d)) {
+    for (j in seq_along(d)) {
+      if (i < j && is.numeric(d[[i]]) && is.numeric(d[[j]])) {
+        p <- ggplot(d, aes(x = .data[[names(d)[i]]],
+                           y = .data[[names(d)[j]]])) +
+          geom_point(color = "steelblue", na.rm = TRUE) +
+          labs(title = paste(names(d)[i], "and", names(d)[j]),
+               x = names(d)[i], y = names(d)[j]) +
+          theme_minimal()
+        print(p)
+        plot_name <- paste(names(d)[i], names(d)[j], sep = "_and_")
+        plots[[plot_name]] <- p
+      }
+    }
+  }
+  return(invisible(plots))
+}
+
+quick_plot <- function(d) {
+  bar_plots <- bar_plot2(d)
+  density_plots <- density_plot2(d)
+  scatter_plots <- scatter_plot(d)
+  return(invisible(list(bars = bar_plots, densities = density_plots,
+                        scatters = scatter_plots)))
+}
+```
+
+```{r test-quick-plot}
+all_plots <- quick_plot(plot_data)
+c(Bars = length(all_plots$bars),
+  Densities = length(all_plots$densities),
+  Scatters = length(all_plots$scatters))
+
+stopifnot(length(all_plots$bars) == 2,
+          length(all_plots$densities) == 6,
+          length(all_plots$scatters) == 3)
+```
+
+The combined function prints **11 plots**. There are 2 grouped bar plots,
+`3 * 2 = 6` density plots, and `3 * (3 - 1) / 2 = 3` scatterplots.
+The density examples have at least four observations per category.
+
+The numeric plots use numeric columns as stored in the input data. A
+categorical variable coded with numbers should be converted to a factor
+before calling these functions. The `.data[[...]]` notation selects a
+column using its name inside a loop.
