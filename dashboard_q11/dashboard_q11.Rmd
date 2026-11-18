@@ -1,0 +1,223 @@
+---
+title: ""
+pagetitle: "MATH421 Car Fuel Economy Presentation"
+output:
+  html_document:
+    self_contained: true
+    theme: null
+    highlight: null
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+
+# This is the same prepared data file used by the Question 10 dashboard.
+vehicles <- read_csv("../dashboard_q10/fuel_economy.csv", show_col_types = FALSE)
+
+# Recalculate the numbers whenever the presentation is knitted.
+n_configurations <- nrow(vehicles)
+mean_mpg <- mean(vehicles$combined_mpg)
+mean_gap <- mean(vehicles$highway_mpg - vehicles$city_mpg)
+class_summary <- vehicles %>%
+  group_by(vehicle_group) %>%
+  summarise(median_mpg = median(combined_mpg), .groups = "drop")
+cars_median <- class_summary$median_mpg[class_summary$vehicle_group == "Cars"]
+pickups_median <- class_summary$median_mpg[class_summary$vehicle_group == "Pickups"]
+```
+
+<style>
+
+
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#17212b;color:#233044;font-family:Arial,sans-serif}
+.main-container{margin:0!important;padding:0!important;max-width:none!important}
+#stage{position:fixed;width:1280px;height:720px;left:50%;top:50%;transform-origin:center center;background:white}
+.slide{display:none;position:absolute;inset:0;background:#fff;box-sizing:border-box;padding:0}
+.slide.active{display:block}
+.slide h2{position:absolute;left:64px;top:30px;width:1152px;height:72px;margin:0;font-size:42px;line-height:1.18;color:#17354d;font-weight:700}
+.cover h2{top:150px;font-size:58px;line-height:1.12}
+.subtitle{position:absolute;left:64px;top:245px;font-size:34px}
+.read-aloud{position:absolute;left:64px;top:155px;width:1152px;font-size:33px;line-height:1.28}
+.read-aloud p{margin:0 0 28px}
+.cover .read-aloud{top:355px;width:1100px;font-size:32px}
+.plot{position:absolute;left:64px;top:103px;width:1152px;height:445px;object-fit:contain}
+.with-plot .read-aloud{top:565px;font-size:27px;line-height:1.2}
+.with-plot .read-aloud p{margin:0}
+.results .read-aloud{top:415px;font-size:30px;line-height:1.24}
+.results.four-rows .read-aloud{top:445px}
+.results .read-aloud p{margin-bottom:26px}
+table{position:absolute;left:100px;top:140px;width:1080px;border-collapse:collapse;table-layout:fixed;font-size:29px;line-height:1.15}
+th,td{box-sizing:border-box;border:2px solid white;height:66px;padding:8px 10px;text-align:left;vertical-align:middle}
+th{background:#17354d;color:white;font-size:27px}
+td{background:#f3f6f8}
+th:first-child,td:first-child{width:720px}
+.page{position:absolute;right:36px;bottom:16px;color:#6b7280;font-size:17px}
+#controls{position:fixed;bottom:5px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:99;opacity:.25}
+#controls:hover,#controls:focus-within{opacity:1}
+#controls button{border:1px solid #718096;background:#fff;color:#17354d;font:14px Arial;padding:5px 12px;border-radius:3px;cursor:pointer}
+@media print{html,body{overflow:visible;background:white;height:auto}#stage{position:static;transform:none!important;width:1280px;height:auto}.slide{display:block!important;position:relative;width:1280px;height:720px;break-after:page}#controls{display:none}@page{size:13.333in 7.5in;margin:0}}
+
+
+/* Keep the midterm layout, with room for the chart and code example. */
+.results .plot{top:105px;height:285px}
+.results .read-aloud{top:405px;font-size:30px;line-height:1.22}
+.results .read-aloud p{margin-bottom:22px}
+.code-slide pre{position:absolute;left:64px;top:140px;width:1152px;box-sizing:border-box;padding:20px;margin:0;background:#f3f6f8;border:0;font-family:Consolas,monospace;font-size:25px;line-height:1.25;white-space:pre-wrap;color:#233044}
+.code-slide .read-aloud{top:490px;font-size:31px}
+.source-note{position:absolute;left:64px;bottom:18px;font-size:16px;color:#6b7280}
+
+</style>
+
+<main id="stage" aria-label="Car Fuel Economy presentation">
+
+<!-- Slide 1: Car Fuel Economy -->
+<section class="slide cover" aria-label="Car Fuel Economy" data-slide="1">
+<h2>Car Fuel Economy</h2>
+<div class="subtitle">MATH 421 Final Project</div>
+<div class="read-aloud">
+<p>An interactive dashboard for EPA vehicle configurations, 2015–2025.</p>
+</div>
+<div class="page">1 / 10</div>
+</section>
+
+<!-- Slide 2: The data -->
+<section class="slide" aria-label="The data" data-slide="2">
+<h2>The data</h2>
+<div class="read-aloud">
+<p>The source is FuelEconomy.gov. The prepared file has 12,381 gasoline and diesel configurations.</p>
+<p>A row is a vehicle configuration, such as a model with a particular engine and transmission. It is not a vehicle sale.</p>
+<p>Non-plug-in hybrids are included. Electric, plug-in, flexible-fuel, and dual-fuel vehicles are excluded.</p>
+</div>
+<div class="source-note">Source: <a href="https://www.fueleconomy.gov/feg/download.shtml">FuelEconomy.gov</a> | Data downloaded November 18, 2026</div>
+<div class="page">2 / 10</div>
+</section>
+
+<!-- Slide 3: Five different inputs -->
+<section class="slide" aria-label="Five different inputs" data-slide="3">
+<h2>Five different inputs</h2>
+<div class="read-aloud">
+<p>The dropdown selects a manufacturer. Checkboxes select vehicle groups.</p>
+<p>The slider selects model years. Radio buttons select gasoline, diesel, or both.</p>
+<p>The numeric input sets the maximum engine size. All five inputs filter the same dataset.</p>
+</div>
+<div class="page">3 / 10</div>
+</section>
+
+<!-- Slide 4: Dashboard features -->
+<section class="slide" aria-label="Dashboard features" data-slide="4">
+<h2>Dashboard features</h2>
+<div class="read-aloud">
+<p>Overview shows three value boxes, a findings paragraph, and the yearly MPG plot.</p>
+<p>Group Comparisons uses tabs for vehicle groups and manufacturer rankings. Engine and Driving has two scatterplots.</p>
+<p>Vehicle Data has a searchable table. About the Data explains the source, cleaning, and limitations.</p>
+</div>
+<div class="page">4 / 10</div>
+</section>
+
+<!-- Slide 5: Results with all filters open -->
+<section class="slide results" aria-label="Results with all filters open" data-slide="5">
+<h2>Results with all filters open</h2>
+
+```{r median-mpg-chart, results='asis'}
+# Compare the group medians using the same data as the dashboard.
+median_plot <- ggplot(class_summary,
+                      aes(x = reorder(vehicle_group, -median_mpg), y = median_mpg)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = median_mpg), vjust = -.3, size = 6) +
+  scale_y_continuous(limits = c(0, 30)) +
+  labs(x = "Vehicle group", y = "Median MPG") +
+  theme_minimal(base_size = 18)
+
+# Embed the R plot in the HTML so there is no separate image to upload.
+plot_file <- tempfile(fileext = ".png")
+ggsave(plot_file, plot = median_plot, width = 11, height = 3, dpi = 150)
+cat('<img class="plot" alt="Median combined MPG by vehicle group" src="',
+    knitr::image_uri(plot_file), '">', sep = "")
+```
+
+<div class="read-aloud">
+<p>The `r format(n_configurations, big.mark = ",")` configurations average `r sprintf("%.1f", mean_mpg)` combined MPG.</p>
+<p>Highway MPG is `r sprintf("%.1f", mean_gap)` higher than city MPG on average. Cars have a median combined MPG of `r cars_median`, compared with `r pickups_median` for pickups.</p>
+<p>These comparisons give every configuration equal weight. They do not represent the mix of vehicles people bought.</p>
+</div>
+<div class="page">5 / 10</div>
+</section>
+
+<!-- Slide 6: How the code is organized -->
+<section class="slide" aria-label="How the code is organized" data-slide="6">
+<h2>How the code is organized</h2>
+<div class="read-aloud">
+<p>Setup loads the packages and reads the prepared CSV once.</p>
+<p>The sidebar creates the five inputs. Output chunks create places for plots, values, and the table.</p>
+<p>The server chunk uses reactive() to filter the rows. renderPlotly(), renderText(), renderUI(), and renderDT() fill the outputs.</p>
+</div>
+<div class="page">6 / 10</div>
+</section>
+
+<!-- Slide 7: How the filtering works -->
+<section class="slide code-slide" aria-label="How the filtering works" data-slide="7">
+<h2>How the filtering works</h2>
+<pre><code>filtered &lt;- reactive({
+  d &lt;- df %&gt;%
+    filter(vehicle_group %in% input$groups,
+           year &gt;= input$years[1],
+           year &lt;= input$years[2],
+           engine_l &lt;= input$engine_max)
+  # Manufacturer and fuel filters follow.
+})</code></pre>
+<div class="read-aloud">
+<p>reactive() recalculates when an input changes. Each output calls filtered() so the figures use the same selection.</p>
+</div>
+<div class="page">7 / 10</div>
+</section>
+
+<!-- Slide 8: Challenges and fixes -->
+<section class="slide" aria-label="Challenges and fixes" data-slide="8">
+<h2>Challenges and fixes</h2>
+<div class="read-aloud">
+<p>MPG and electric MPGe have different meanings. The project focuses on single-fuel gasoline and diesel configurations.</p>
+<p>Empty filters can leave no rows. Each plot checks the row count and shows a message instead of an unexplained blank plot.</p>
+<p>The live image folder needs a Shiny resource path. The value boxes use value_box() so their numbers can update.</p>
+</div>
+<div class="page">8 / 10</div>
+</section>
+
+<!-- Slide 9: A simple live demonstration -->
+<section class="slide" aria-label="A simple live demonstration" data-slide="9">
+<h2>A simple live demonstration</h2>
+<div class="read-aloud">
+<p>Start with all filters open and read the summary values.</p>
+<p>Choose Toyota, keep only SUVs, choose Gasoline, and set the maximum engine size to 2.5 liters.</p>
+<p>Open the comparison tabs and the Vehicle Data page. Search for RAV4. The sidebar filters the full dashboard; table search filters only the table.</p>
+</div>
+<div class="page">9 / 10</div>
+</section>
+
+<!-- Slide 10: Advice for this project -->
+<section class="slide" aria-label="Advice for this project" data-slide="10">
+<h2>Advice for this project</h2>
+<div class="read-aloud">
+<p>Build a small dashboard first, then add one input and one output at a time.</p>
+<p>Keep the prepared CSV and image folder with the QMD. Use relative paths so the app can run on the server.</p>
+<p>Test empty selections and check the numbers. Publish the Shiny app on Posit Connect Cloud because HTML alone cannot run its inputs.</p>
+</div>
+<div class="page">10 / 10</div>
+</section>
+</main>
+<nav id="controls" aria-label="Presentation controls"><button id="prev" aria-label="Previous slide">Previous</button><button id="next" aria-label="Next slide">Next</button><button id="full">Full screen</button></nav>
+<script>
+
+
+(()=>{
+ const slides=Array.from(document.querySelectorAll('.slide'));
+ let current=Math.max(0,Math.min(slides.length-1,parseInt(location.hash.slice(1),10)-1||0));
+ function show(n){current=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,i)=>{s.classList.toggle('active',i===current);s.setAttribute('aria-hidden',i!==current)});history.replaceState(null,'','#'+(current+1));document.title='Car Fuel Economy: '+(current+1)+' / '+slides.length;}
+ function fit(){document.getElementById('stage').style.transform='translate(-50%,-50%) scale('+Math.min(innerWidth/1280,innerHeight/720)+')'}
+ document.getElementById('prev').onclick=()=>show(current-1);
+ document.getElementById('next').onclick=()=>show(current+1);
+ document.getElementById('full').onclick=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.()};
+ addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(current+1)}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(current-1)}else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);else if(e.key.toLowerCase()==='f')document.getElementById('full').click()});
+ addEventListener('resize',fit);show(current);fit();
+})();
+
+</script>
