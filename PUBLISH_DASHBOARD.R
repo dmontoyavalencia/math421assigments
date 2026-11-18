@@ -1,7 +1,7 @@
 # Open this script in RStudio. Change question and account, then run it.
 # Publish Q3-Q6 with your first free account and Q7-Q10 with your second.
 question <- 10
-account <- "dmontoyavalencia"
+account <- if (question <= 6) "dmontoyavalencia" else "danimontoyav"
 
 if (!requireNamespace("rsconnect", quietly = TRUE)) {
   install.packages("rsconnect", repos = "https://cloud.r-project.org")
@@ -32,7 +32,10 @@ app_files <- c(primary_document, list.files(app_folder, pattern = "\\.csv$"),
   file.path("www", list.files(file.path(app_folder, "www"))))
 rsconnect::writeManifest(appDir = app_folder, appFiles = app_files,
   appPrimaryDoc = primary_document, appMode = "quarto-shiny", quarto = TRUE)
-rsconnect::deployApp(appDir = app_folder, appFiles = app_files,
+existing <- rsconnect::applications(account = account, server = "connect.posit.cloud")
+matching <- existing[existing$title == paste("MATH 421 - Question", question), , drop = FALSE]
+app_id <- if (nrow(matching)) matching$id[1] else NULL
+rsconnect::deployApp(appDir = app_folder, appFiles = app_files, appId = app_id,
   appPrimaryDoc = primary_document, appMode = "quarto-shiny", quarto = TRUE,
   appName = paste0("math421-dashboard-q", question),
   appTitle = paste("MATH 421 - Question", question),

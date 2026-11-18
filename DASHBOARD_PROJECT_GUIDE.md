@@ -38,13 +38,13 @@ These are configuration averages, not sales-weighted fleet estimates.
 
 ## Publish
 
-Questions 3-10 have been built and checked locally. Their live URLs are
-pending publishing authorization. A rendered HTML file alone cannot run
+Questions 3-10 are published on Posit Connect Cloud. Their live URLs are
+listed in the project section of README.md. A rendered HTML file alone cannot run
 the Shiny controls. Do not use those generated HTML files as app links.
 
-The current free Posit Connect Cloud account allows five apps. The
-assignment recommends two free accounts: use the first for Q3-Q6 and the
-second for Q7-Q10. No paid upgrade is required by this workflow.
+Each free Posit Connect Cloud account allows five apps. Questions 3-6 use
+`dmontoyavalencia`; Questions 7-10 use `danimontoyav`. Both accounts are
+registered with rsconnect on this computer. No paid upgrade was used.
 
 For an older RStudio, open `PUBLISH_DASHBOARD.R` from the course folder.
 Change the question number and account name, then run the script. Approve
