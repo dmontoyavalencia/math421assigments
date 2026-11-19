@@ -55,7 +55,3 @@
 [Question 9 - Combined Inputs](https://01a1f0ba-3be2-1a09-5257-18161673db71.share.connect.posit.cloud/)
 
 [Question 10 - Car Fuel Economy](https://01a1f0b7-fbcf-5faf-d5c7-80a166fbbba6.share.connect.posit.cloud/)
-
-[Question 11 - Presentation](dashboard_q11/dashboard_q11.html)
-
-[Presentation R Markdown Source](https://github.com/dmontoyavalencia/math421assigments/blob/main/dashboard_q11/dashboard_q11.Rmd)
